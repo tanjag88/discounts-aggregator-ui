@@ -1,19 +1,58 @@
 {
-  "posts": [
+  "products": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "price": 100,
+      "currency": "CA",
+      "name":"sofa",
+      "description":"sofa sofa sofa",
+      "key":123,
+      "active": true,
+      "url":"",
+      "img":"",
+      "category": "furniture",
+      "seller":"Structube"
+
+
+    },
+    {
+      "id": 2,
+      "price": 1000,
+      "currency": "CA",
+      "name": "lap-top",
+      "description": "apple lap-top",
+      "key": 123,
+      "active": true,
+      "url": "",
+      "img": "",
+      "category": "lap-tops",
+      "seller": "BestBuy"
     }
   ],
-  "comments": [
+  "sellers": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name": "Structube"
+      
+    },
+    {
+      "id": 2,
+      "name": "BestBuy"
+      
     }
+
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "categories": [
+    {
+      "id": 1,
+      "name": "furniture"
+      
+    },
+    {
+      "id": 2,
+      "name": "lap-tops"
+      
+    }
+  ]
+ 
 }
