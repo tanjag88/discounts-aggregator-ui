@@ -9,7 +9,7 @@ export default function Product({product}){
     const {name, description, price, img,id } = product;
     
     return (
-      <div>
+      <div key={id}>
         <h1>{name}</h1>
         <Link to={`/products/${id}`}>
           <img alt="" src={img}></img>
@@ -17,7 +17,6 @@ export default function Product({product}){
 
         <p>{description}</p>
         <p>{price}</p>
-        
       </div>
     );
 }
