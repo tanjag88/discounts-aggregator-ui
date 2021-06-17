@@ -1,13 +1,23 @@
 import React from 'react';
+import { Link } from "react-router-dom";
+
+
+
 
 
 export default function Product({product}){
-    const {name, description, price} = product
-    return(
-        <div>
-            <h1>{name}</h1>
-            <p>{description}</p>
-            <p>{price}</p>
-        </div>
+    const {name, description, price, img,id } = product;
+    
+    return (
+      <div>
+        <h1>{name}</h1>
+        <Link to={`/products/${id}`}>
+          <img alt="" src={img}></img>
+        </Link>
+
+        <p>{description}</p>
+        <p>{price}</p>
+        
+      </div>
     );
 }

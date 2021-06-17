@@ -1,35 +1,14 @@
 import React from "react";
 import Product from "./Product";
+import useFetch from '../Services/useFetch';
 
 export default function Products() {
-  const products = [
-    {
-      id: 1,
-      price: 100,
-      currency: "CA",
-      name: "sofa",
-      description: "sofa sofa sofa",
-      key: 123,
-      active: true,
-      url: "",
-      img: "",
-      category: "furniture",
-      seller: "Structube",
-    },
-    {
-      id: 2,
-      price: 1000,
-      currency: "CA",
-      name: "lap-top",
-      description: "apple lap-top",
-      key: 123,
-      active: true,
-      url: "",
-      img: "",
-      category: "lap-tops",
-      seller: "BestBuy",
-    },
-  ];
+  
+  const {data:products, loading, error} = useFetch("products");
+  
+  if(error) throw error;
+  if (loading) return (<h1>loading..</h1>);
+  if(products.length === null) return (<h1>page not found</h1>)
 
   return (
     <div>

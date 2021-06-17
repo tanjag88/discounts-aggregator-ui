@@ -8,8 +8,8 @@
       "description":"sofa sofa sofa",
       "key":123,
       "active": true,
-      "url":"",
-      "img":"",
+      "url":"https://www.structube.com/en_ca/arwa-interchangeable-sectional-sofabed-with-storage-67-25-78?pid=25458",
+      "img":"https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-67.25.78.62_modularsofabed_arwa.jpg",
       "category": "furniture",
       "seller":"Structube"
 
@@ -23,8 +23,8 @@
       "description": "apple lap-top",
       "key": 123,
       "active": true,
-      "url": "",
-      "img": "",
+      "url": "https://www.bestbuy.ca/en-ca/product/apple-macbook-air-13-3-w-touch-id-fall-2020-space-grey-apple-m1-chip-256gb-ssd-8gb-ram-en/15136919",
+      "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/151/15136/15136919.jpg",
       "category": "lap-tops",
       "seller": "BestBuy"
     }
