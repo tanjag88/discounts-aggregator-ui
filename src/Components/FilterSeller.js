@@ -3,13 +3,22 @@ import { useState } from "react";
 import useFetch from "../Services/useFetch";
 import { Multiselect } from "multiselect-react-dropdown";
 
-export default function FilterCategory() {
+export default function FilterCategory({
+  selectedSellerFilterCallback,
+}) {
   const [seller, setSeller] = useState([]);
 
   const { data: sellers, loading, error } = useFetch("sellers");
 
+  const selectedSeller = (selectedList, selectedSeller) => {
+    setSeller(selectedList);
+    selectedSellerFilterCallback(selectedList);
+  };
+
   const removedSeller = (selectedList, removedItem) => {
-    setSeller(seller.filter((c) => c.id !== removedItem.id));
+    let newFilterSeller = seller.filter((c) => c.id !== removedItem.id);
+    setSeller(newFilterSeller);
+    selectedSellerFilterCallback(newFilterSeller);
   };
 
   if (error) throw error;
@@ -21,7 +30,7 @@ export default function FilterCategory() {
       placeholder="SELECT SELLER"
       options={sellers}
       selectedValues={seller}
-      onSelect={setSeller}
+      onSelect={selectedSeller}
       onRemove={removedSeller}
       displayValue="name"
     ></Multiselect>
