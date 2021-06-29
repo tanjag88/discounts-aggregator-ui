@@ -3,6 +3,7 @@ import Product from "./Product";
 import useFetch from "../Services/useFetch";
 import Filter from "./Filter";
 import { useState } from "react";
+import Paginate from "./Paginate";
 
 export default function Products() {
   function arrayToQueryString(array, filter) {
@@ -22,15 +23,24 @@ export default function Products() {
 
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedSeller, setSelectedSeller] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const {
     data: products,
     loading,
     error,
+    totalPages,
   } = useFetch(
     "products?" +
       arrayToQueryString(selectedCategory, "category") +
-      arrayToQueryString(selectedSeller, "seller")
+      arrayToQueryString(selectedSeller, "seller") +
+      `_limit=2&_page=${currentPage}`
   );
+
+ const  handlePageClick = (data) => {
+    setCurrentPage(data.selected+1);
+  };
+  
 
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;
@@ -49,6 +59,7 @@ export default function Products() {
           return <Product product={product} />;
         })}
       </div>
+      <Paginate totalPages={totalPages} pageChangeCallback={handlePageClick} />
     </>
   );
 }
