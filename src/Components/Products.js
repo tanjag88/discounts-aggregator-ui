@@ -26,6 +26,8 @@ export default function Products() {
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [selectedSeller, setSelectedSeller] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const[sortAndOrder, setSortAndOrder] = useState("");
+  
 
   const {
     data: products,
@@ -33,7 +35,7 @@ export default function Products() {
     error,
     totalPages,
   } = useFetch(
-    "products?" +
+    "products?" + sortAndOrder +
       arrayToQueryString(selectedCategory, "category") +
       arrayToQueryString(selectedSeller, "seller") +
       `&_limit=9&_page=${currentPage}`
@@ -52,6 +54,10 @@ export default function Products() {
     setCurrentPage(1);
   };
 
+  const handleSelectedSortAndOrder = (selectedSortAndOrder) => {
+    setSortAndOrder(selectedSortAndOrder)
+  };
+
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;
   if (products.length === null) return <h1>products not found</h1>;
@@ -66,7 +72,7 @@ export default function Products() {
           selectedSellerFilterCallback={handleSelectedSeller}
         />
       </div>
-      <Sort/>
+      <Sort selectedSortAndOrderCallback={handleSelectedSortAndOrder} />
 
       <CardDeck>
         {[...Array(noOfRows)].map((x, i) => (
