@@ -22,6 +22,8 @@ export default function useFetch(url) {
               return item.includes("last");
             })[0]
             .match(/page=([0-9]+)/)[1]));
+        }else{
+          setTotalPages(1);
         }
 
         if (response.ok) {

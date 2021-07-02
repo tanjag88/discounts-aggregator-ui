@@ -3,10 +3,11 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Products from "./Components/Products";
 import Detail from "./Components/Detail";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
-    <div className="content">
+    <div>
       <Router>
         <Switch>
           

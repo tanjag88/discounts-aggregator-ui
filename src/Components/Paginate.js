@@ -4,7 +4,7 @@ export default function Paginate({ totalPages, pageChangeCallback }) {
   return (
     <ReactPaginate
       pageCount={totalPages}
-      pageRangeDisplayed={5}
+      pageRangeDisplayed={9}
       marginPagesDisplayed={2}
       previousLabel={"previous"}
       nextLabel={"next"}

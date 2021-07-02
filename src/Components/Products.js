@@ -4,6 +4,8 @@ import useFetch from "../Services/useFetch";
 import Filter from "./Filter";
 import { useState } from "react";
 import Paginate from "./Paginate";
+import Sort from "./Sort";
+import { CardDeck } from "react-bootstrap";
 
 export default function Products() {
   function arrayToQueryString(array, filter) {
@@ -34,31 +36,47 @@ export default function Products() {
     "products?" +
       arrayToQueryString(selectedCategory, "category") +
       arrayToQueryString(selectedSeller, "seller") +
-      `_limit=2&_page=${currentPage}`
+      `&_limit=9&_page=${currentPage}`
   );
 
- const  handlePageClick = (data) => {
-    setCurrentPage(data.selected+1);
+  const handlePageClick = (data) => {
+    setCurrentPage(data.selected + 1);
   };
-  
+
+  const handleSelectedCategory =(data)=>{
+    setSelectedCategory(data);
+    setCurrentPage(1);
+  };
+  const handleSelectedSeller = (data) => {
+    setSelectedSeller(data);
+    setCurrentPage(1);
+  };
 
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;
   if (products.length === null) return <h1>products not found</h1>;
 
+  const noOfRows = Math.ceil(products.length/3);
+
   return (
     <>
       <div>
         <Filter
-          selectedCategoryFilterCallback={setSelectedCategory}
-          selectedSellerFilterCallback={setSelectedSeller}
+          selectedCategoryFilterCallback={handleSelectedCategory}
+          selectedSellerFilterCallback={handleSelectedSeller}
         />
       </div>
-      <div>
-        {products.map(function (product) {
-          return <Product product={product} />;
-        })}
-      </div>
+      <Sort/>
+
+      <CardDeck>
+        {[...Array(noOfRows)].map((x, i) => (
+          <div className="row">
+            {products.slice(i * 3, i * 3 + 3).map((product) => {
+              return <Product product={product} />;
+            })}
+          </div>
+        ))}
+      </CardDeck>
       <Paginate totalPages={totalPages} pageChangeCallback={handlePageClick} />
     </>
   );
