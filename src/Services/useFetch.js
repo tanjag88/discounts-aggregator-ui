@@ -7,6 +7,7 @@ export default function useFetch(url) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
+  
 
   useEffect(() => {
     isMounted.current = true;
@@ -16,16 +17,16 @@ export default function useFetch(url) {
        
         const linkHeader = response.headers.get("Link");
         if (linkHeader) {
+        
          setTotalPages(parseInt(linkHeader
             .split(",")
             .filter(function (item) {
               return item.includes("last");
             })[0]
             .match(/page=([0-9]+)/)[1]));
-        }else{
-          setTotalPages(1);
         }
-
+       
+        
         if (response.ok) {
           const json = await response.json();
           if (isMounted.current) setData(json);
@@ -43,7 +44,8 @@ export default function useFetch(url) {
       isMounted.current = false;
     };
   }, [url]);
-  return { data, error, loading, totalPages };
+  return { data, error, loading, totalPages};
+  
 }
 
 export function Fetch({ url, children }) {

@@ -6,63 +6,108 @@ import { useState } from "react";
 import Paginate from "./Paginate";
 import Sort from "./Sort";
 import { CardDeck } from "react-bootstrap";
+import { useLocation, useHistory } from "react-router-dom";
 
 export default function Products() {
-  function arrayToQueryString(array, filter) {
-    if (array && array.length > 0) {
-      return (
-        `&${filter}=` +
-        array
-          .map(function (i) {
-            return i.name;
-          })
-          .join(`&${filter}=`)
-      );
-    }
+  const history = useHistory();
+  const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+  };
 
-    return "";
-  }
+  const params = useQuery();
+  // const { query } = this.props.location;
 
-  const [selectedCategory, setSelectedCategory] = useState([]);
-  const [selectedSeller, setSelectedSeller] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const[sortAndOrder, setSortAndOrder] = useState("");
+  const category = params.getAll("category");
+  const categoryUrl =
+    category.length !== 0
+      ? "&category=" + params.getAll("category").join("&category=")
+      : "";
+
+  const seller = params.getAll("seller");
+  const sellerUrl =
+    seller.length !== 0
+      ? "&seller=" + params.getAll("seller").join("&seller=")
+      : "";
+  const limitUrl = "&_limit=3";
   
+  
+  const currentPageParam = params.get("_page");
+  const currentPage = currentPageParam === null ? 1: currentPageParam
+  const pageUrl = currentPage === null ? "&_page=1" : `&_page=${currentPage}`;
 
+  const sort = params.get("_sort");
+  const order = params.get("_order");
+
+  const sortAndOrder = (sort === null & order === null)? "":`&_sort=${sort}&_order=${order}`;
+
+  const searchQueryParm = params.get("q");
+  const searchQueryUrl =
+    searchQueryParm === null ? "" : `&q=${searchQueryParm}`;
+ 
   const {
     data: products,
     loading,
     error,
     totalPages,
   } = useFetch(
-    "products?" + sortAndOrder +
-      arrayToQueryString(selectedCategory, "category") +
-      arrayToQueryString(selectedSeller, "seller") +
-      `&_limit=9&_page=${currentPage}`
+    "products?" + sortAndOrder + categoryUrl + sellerUrl + limitUrl + pageUrl + searchQueryUrl
   );
 
   const handlePageClick = (data) => {
-    setCurrentPage(data.selected + 1);
+   
+    history.push({
+      search:
+        limitUrl +
+        `&_page=${data.selected + 1}` +
+        categoryUrl +
+        sellerUrl +
+        sortAndOrder +
+        searchQueryUrl,
+    });
   };
 
-  const handleSelectedCategory =(data)=>{
-    setSelectedCategory(data);
-    setCurrentPage(1);
+  const handleSelectedCategory = (data) => {
+    
+    var s = "";
+    for (var i = 0; i < data.length; i++) {
+      s += "&category=" + data[i].name;
+    }
+    history.push({
+      search:
+        limitUrl + "&_page=1" + s + sellerUrl + sortAndOrder + searchQueryUrl,
+    });
   };
   const handleSelectedSeller = (data) => {
-    setSelectedSeller(data);
-    setCurrentPage(1);
+    
+    var s = "";
+    for (var i = 0; i < data.length; i++) {
+      s += "&seller=" + data[i].name;
+    }
+    history.push({
+      search:
+        limitUrl + "&_page=1" + s + categoryUrl + sortAndOrder + searchQueryUrl,
+    });
   };
 
   const handleSelectedSortAndOrder = (selectedSortAndOrder) => {
-    setSortAndOrder(selectedSortAndOrder)
+    
+
+    history.push({
+      search:
+        limitUrl +
+        "&_page=1" +
+        categoryUrl +
+        sellerUrl +
+        selectedSortAndOrder +
+        searchQueryUrl,
+    });
   };
 
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;
-  if (products.length === null) return <h1>products not found</h1>;
+  if (products.length === null || products.length === 0) return <h1>products not found</h1>;
 
-  const noOfRows = Math.ceil(products.length/3);
+  const noOfRows = Math.ceil(products.length / 3);
 
   return (
     <>
@@ -70,9 +115,11 @@ export default function Products() {
         <Filter
           selectedCategoryFilterCallback={handleSelectedCategory}
           selectedSellerFilterCallback={handleSelectedSeller}
+          selectedCategoryParam={category}
+          selectedSellerParam={seller}
         />
       </div>
-      <Sort selectedSortAndOrderCallback={handleSelectedSortAndOrder} />
+      <Sort selectedSortAndOrderCallback={handleSelectedSortAndOrder} sortAndOrder={sortAndOrder}/>
 
       <CardDeck>
         {[...Array(noOfRows)].map((x, i) => (
@@ -83,7 +130,11 @@ export default function Products() {
           </div>
         ))}
       </CardDeck>
-      <Paginate totalPages={totalPages} pageChangeCallback={handlePageClick} />
+      <Paginate
+        totalPages={totalPages}
+        pageChangeCallback={handlePageClick}
+        currentPage={parseInt(currentPage) - 1}
+      />
     </>
   );
 }

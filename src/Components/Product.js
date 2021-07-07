@@ -3,15 +3,16 @@ import { Link} from "react-router-dom";
 import { Card } from "react-bootstrap";
 
 export default function Product({ product }) {
-  const { name, price, img, id, url } = product;
+  const { name, price, img, id, url} = product;
 
-  return (  <Card className="p-3" key={id}>
+  return (
+    <Card className="p-3" key={id}>
       <Card.Img
         variant="top"
         src={img}
         Link={`/products/${id}`}
         height="60%"
-        weight= "50%"
+        weight="50%"
       />
       <Card.Body>
         <Card.Title>{name}</Card.Title>
@@ -24,6 +25,7 @@ export default function Product({ product }) {
       </Card.Body>
       <Card.Footer>
         <small className="text-muted">Last updated 3 mins ago</small>
+        
       </Card.Footer>
     </Card>
   );

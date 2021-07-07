@@ -1,14 +1,19 @@
 import ReactPaginate from "react-paginate";
 
-export default function Paginate({ totalPages, pageChangeCallback }) {
+export default function Paginate({
+  totalPages,
+  pageChangeCallback,
+  currentPage,
+}) {
   return (
     <ReactPaginate
       pageCount={totalPages}
-      pageRangeDisplayed={9}
+      pageRangeDisplayed={3}
       marginPagesDisplayed={2}
       previousLabel={"previous"}
       nextLabel={"next"}
-      initialPage={0}
+      initialPage={currentPage}
+      forcePage={currentPage}
       onPageChange={pageChangeCallback}
       containerClassName={"pagination"}
       activeClassName={"active"}

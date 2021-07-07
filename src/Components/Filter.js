@@ -5,6 +5,8 @@ import FilterCategory from "./FilterCategory";
 export default function Filter({
   selectedCategoryFilterCallback,
   selectedSellerFilterCallback,
+  selectedCategoryParam,
+  selectedSellerParam,
 }) {
   return (
     <div className="row">
@@ -12,10 +14,12 @@ export default function Filter({
         <h3>FILTER</h3>
 
         <FilterCategory
-          selectedCategoryFilterCallback={selectedCategoryFilterCallback}
+        selectedCategoryFilterCallback={selectedCategoryFilterCallback}
+        selectedCategoryParam ={selectedCategoryParam}
         />
         <FilterSeller
           selectedSellerFilterCallback={selectedSellerFilterCallback}
+          selectedSellerParam = {selectedSellerParam}
         />
       </div>
     </div>

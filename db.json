@@ -241,11 +241,11 @@
   ],
   "categories": [
     {
-      "id": 5,
+      "id": "furniture",
       "name": "furniture"
     },
     {
-      "id": 6,
+      "id": "lap-tops",
       "name": "lap-tops"
     }
   ]
