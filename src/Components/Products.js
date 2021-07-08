@@ -16,18 +16,21 @@ export default function Products() {
 
   const params = useQuery();
   // const { query } = this.props.location;
-
   const category = params.getAll("category");
-  const categoryUrl =
-    category.length !== 0
-      ? "&category=" + params.getAll("category").join("&category=")
-      : "";
-
   const seller = params.getAll("seller");
-  const sellerUrl =
-    seller.length !== 0
-      ? "&seller=" + params.getAll("seller").join("&seller=")
-      : "";
+
+  function getUrlParams(queryStringParams, queryProp){
+   
+    const paramUrl =
+      queryStringParams.length !== 0
+        ? `&${queryProp}=` + queryStringParams.join(`&${queryProp}=`)
+        : "";
+    return paramUrl;
+  }
+
+
+  const categoryUrl = getUrlParams(category, "category");
+  const sellerUrl = getUrlParams(seller, "seller");
   const limitUrl = "&_limit=3";
   
   
