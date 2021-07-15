@@ -5,7 +5,7 @@ export default function Product({ product }) {
   const { name, price, img, id, url } = product;
 
   return (
-    <div className="col-lg-4 col-sm-6" key={id}>
+    <div className="col-xl-3 col-lg-4 col-sm-6" key={id}>
       <div className="product text-center">
         <div className="mb-3 position-relative">
           <div className="badge text-white badge-"></div>
@@ -48,4 +48,3 @@ export default function Product({ product }) {
     </div>
   );
 }
-

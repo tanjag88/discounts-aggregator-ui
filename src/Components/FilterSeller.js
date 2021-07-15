@@ -1,7 +1,7 @@
 import React from "react";
-import { useState } from "react";
+
 import useFetch from "../Services/useFetch";
-import { Multiselect } from "multiselect-react-dropdown";
+
 
 export default function FilterCategory({
   selectedSellerFilterCallback, selectedSellerParam
@@ -10,12 +10,22 @@ export default function FilterCategory({
  
   const { data: sellers, loading, error } = useFetch("sellers");
 
-  const removedSeller = (selectedList, removedItem) => {
-    
-    selectedSellerFilterCallback(selectedList);
-  };
+  
 
- const preSelectedSellers = [];
+function handelSelectSeller(e){
+  
+  const selectedSeller = [].concat(selectedSellerParam);
+  if(e.target.checked){
+    selectedSeller.push(e.target.value);
+    selectedSellerFilterCallback(selectedSeller);
+  }else{
+    const newSellerList = selectedSellerParam.filter(s=>s!==e.target.value);
+    selectedSellerFilterCallback(newSellerList);
+  }
+}
+
+
+const preSelectedSellers = [];
  
 selectedSellerParam.forEach(key => 
     {
@@ -24,23 +34,35 @@ selectedSellerParam.forEach(key =>
       preSelectedSellers.push(item);
     }
     );
-  
- 
- 
-  
 
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;
   if (sellers.length === null) return <h1>products not found</h1>;
 
   return (
-    <Multiselect
-      placeholder="SELECT SELLER"
-      options={sellers}
-      selectedValues={preSelectedSellers}
-      onSelect={selectedSellerFilterCallback}
-      onRemove={removedSeller}
-      displayValue="name"
-    ></Multiselect>
+    <>
+      <h6 class="text-uppercase mb-3">Sellers</h6>
+
+      {sellers.map((seller) => {
+        return (
+          <div
+            className="custom-control custom-checkbox mb-1"
+            key={seller.id}
+          >
+            <input
+              className="custom-control-input"
+              id={seller.id}
+              type="checkbox"
+              value={seller.name}
+              onChange={handelSelectSeller}
+              defaultChecked={selectedSellerParam.includes(seller.name)}
+            ></input>
+            <label class="custom-control-label text-small" for={seller.id}>
+              {seller.name}
+            </label>
+          </div>
+        );
+      })}
+    </>
   );
 }

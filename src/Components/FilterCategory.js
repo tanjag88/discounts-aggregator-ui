@@ -1,44 +1,62 @@
 import React from "react";
-import { useState } from "react";
 import useFetch from "../Services/useFetch";
-import { Multiselect } from "multiselect-react-dropdown";
-
-export default function FilterCategory({ selectedCategoryFilterCallback, selectedCategoryParam }) {
-  
 
 
+export default function FilterCategory({
+  selectedCategoryFilterCallback,
+  selectedCategoryParam,
+}) {
   const { data: categories, loading, error } = useFetch("categories");
 
-  
-  const removedCategory = (selectedList, removedItem) => {
+  function handelSelectCategory(e) {
     
-    
-    selectedCategoryFilterCallback(selectedList);
-  };
-
-  const preSelectedCategories = []
-  selectedCategoryParam.forEach(key => 
-    {
-      var item = {}
-      item["name"] = key
-      preSelectedCategories.push(item);
+    const selectedCategory = [].concat(selectedCategoryParam);
+    if (e.target.checked) {
+      selectedCategory.push(e.target.value);
+      selectedCategoryFilterCallback(selectedCategory);
+    } else {
+      const newCategoryList = selectedCategoryParam.filter(c=>c!==e.target.value);
+      selectedCategoryFilterCallback(newCategoryList);
     }
-    );
-  
+  }
+
+  const preSelectedCategories = [];
+
+  selectedCategoryParam.forEach((key) => {
+    var item = {};
+    item["name"] = key;
+    preSelectedCategories.push(item);
+  });
 
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;
   if (categories.length === null) return <h1>products not found</h1>;
 
   return (
-   
-    <Multiselect
-      placeholder="SELECT CATEGORY"
-      options={categories}
-      selectedValues={preSelectedCategories}
-      onSelect={selectedCategoryFilterCallback}
-      onRemove={removedCategory}
-      displayValue="name"
-    ></Multiselect>
+    <>
+      <h6 class="text-uppercase mb-3">Categories</h6>
+
+      {categories.map((category) => {
+        return (
+          <div
+            className="custom-control custom-checkbox mb-1"
+            key={category.id}
+          >
+            <input
+              className="custom-control-input"
+              id={category.id}
+              type="checkbox"
+              value={category.name}
+              onChange={handelSelectCategory}
+              defaultChecked={selectedCategoryParam.includes(category.name)}
+            ></input>
+            <label class="custom-control-label text-small" for={category.id}>
+              {category.name}
+            </label>
+          </div>
+        );
+      })}
+    </>
   );
 }
+

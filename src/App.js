@@ -6,25 +6,28 @@ import Detail from "./Components/Detail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Header";
 import HomePage from "./Components/HomePage";
+import "./css/style.default.css";
+
 
 function App() {
   return (
-    <div>
+    <div className="page-holder">
       <Router>
         <Header />
+        <div className="container">
+          <Switch>
+            <Route path="/products/:id">
+              <Detail />
+            </Route>
+            <Route path="/products">
+              <Products />
+            </Route>
 
-        <Switch>
-          <Route path="/products/:id">
-            <Detail />
-          </Route>
-          <Route path="/products">
-            <Products />
-          </Route>
-
-          <Route path="/">
-            <HomePage />
-          </Route>
-        </Switch>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+        </div>
       </Router>
     </div>
   );

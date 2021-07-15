@@ -6,18 +6,28 @@ export default function Paginate({
   currentPage,
 }) {
   return (
-    <ReactPaginate
-      pageCount={totalPages}
-      pageRangeDisplayed={3}
-      marginPagesDisplayed={2}
-      previousLabel={"previous"}
-      nextLabel={"next"}
-      initialPage={currentPage}
-      forcePage={currentPage}
-      onPageChange={pageChangeCallback}
-      containerClassName={"pagination"}
-      activeClassName={"active"}
-      disableInitialCallback={true}
-    ></ReactPaginate>
+    <nav aria-label="Page navigation example">
+      <ReactPaginate
+        containerClassName={
+          "pagination justify-content-center justify-content-lg-end"
+        }
+        pageCount={totalPages}
+        pageRangeDisplayed={6}
+        marginPagesDisplayed={2}
+        previousLabel={"previous"}
+        previousClassName={"page-item"}
+        previousLinkClassName={"page-link"}
+        nextLabel={"next"}
+        nextClassName={"page-item"}
+        nextLinkClassName={"page-link"}
+        pageLinkClassName={"page-link"}
+        pageClassName={"page-item"}
+        initialPage={currentPage}
+        forcePage={currentPage}
+        onPageChange={pageChangeCallback}
+        activeClassName={"active"}
+        disableInitialCallback={true}
+      ></ReactPaginate>
+    </nav>
   );
 }
