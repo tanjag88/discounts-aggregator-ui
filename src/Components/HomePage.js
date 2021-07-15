@@ -61,7 +61,7 @@ export default function HomePage() {
             </a>
           </div>
           <div className="col-md-4">
-            <a className="category-item" href={"/products?category=lap-tops"}>
+            <a className="category-item" href={"/products?category=electronics"}>
               <img className="img-fluid" src="Images/robots.png" alt=""></img>
               <strong className="category-item-title">Electronics</strong>
             </a>

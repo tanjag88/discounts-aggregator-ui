@@ -64,8 +64,8 @@ export default function Header() {
                 <NavDropdown.Item as={Link} to="/products?category=furniture">
                   Furniture
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/products?category=lap-tops">
-                  Lap-tops
+                <NavDropdown.Item as={Link} to="/products?category=electronics">
+                  Electronics
                 </NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">
                   Something
