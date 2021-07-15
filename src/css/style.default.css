@@ -2003,6 +2003,13 @@ STYLE SWITCHER FOR DEMO
   text-decoration: none;
 }
 
+.btn-outline-dark{
+  color: #000000;
+  background-color: transparent;
+  background-image: none;
+  border-color: #000000;
+}
+
 .btn-outline-success {
   color: #28a745;
   background-color: transparent;

@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Header";
 import HomePage from "./Components/HomePage";
 import "./css/style.default.css";
+import Footer from "./Components/Footer";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+        <Footer/>
       </Router>
     </div>
   );

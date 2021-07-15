@@ -8,6 +8,7 @@ import Sort from "./Sort";
 
 import { useLocation, useHistory } from "react-router-dom";
 
+
 export default function Products() {
   const history = useHistory();
   const useQuery = () => {
@@ -58,6 +59,7 @@ export default function Products() {
     loading,
     error,
     totalPages,
+    noOfProducts,
   } = useFetch(
     "products?" +
       sortAndOrder +
@@ -150,6 +152,9 @@ export default function Products() {
     
   };
 
+
+  
+
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;
  
@@ -159,27 +164,29 @@ export default function Products() {
       <section className="py-5">
         <div className="container p-0">
           <div className="row">
-            {/* //filter */}
+            
             <Filter
               selectedCategoryFilterCallback={handleSelectedCategory}
               selectedSellerFilterCallback={handleSelectedSeller}
               selectedCategoryParam={category}
               selectedSellerParam={seller}
               priceRangeCallback={handlePriceRange}
-              selectedPriceRange={[priceFromInt,priceToInt]}
+              selectedPriceRange={[priceFromInt, priceToInt]}
             />
 
             <div className="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
               <div className="row mb-3 align-items-center">
                 <div className="col-lg-6 mb-2 mb-lg-0">
                   <p class="text-small text-muted mb-0">
-                    Showing 1–12 of 53 results
+                    Showing {(parseInt(currentPage) - 1) * 6 + 1} – {" "}
+                    {noOfProducts < parseInt(currentPage) * 6
+                      ? noOfProducts
+                      : parseInt(currentPage) * 6}{" "}
+                    of {noOfProducts} products
                   </p>
-                  
                 </div>
                 <div className="col-lg-6">
                   <ul className="list-inline d-flex align-items-center justify-content-lg-end mb-0">
-                    
                     <Sort
                       selectedSortAndOrderCallback={handleSelectedSortAndOrder}
                       sortAndOrder={sortAndOrder}
@@ -201,10 +208,9 @@ export default function Products() {
                 totalPages={totalPages}
                 pageChangeCallback={handlePageClick}
                 currentPage={parseInt(currentPage) - 1}
+                noOfProducts={noOfProducts}
               />
             </div>
-
-            
           </div>
         </div>
       </section>

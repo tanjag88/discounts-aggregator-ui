@@ -1,9 +1,9 @@
 import React from "react";
-import { useState } from "react";
+
 import { useParams } from "react-router-dom";
 import useFetch from "../Services/useFetch";
 import HistoryPriceChart from '../Components/HistoryPriceChart';
-import { Card, ListGroup, ListGroupItem, Button } from "react-bootstrap";
+
 
 export default function Detail() {
   const { id } = useParams();
@@ -62,6 +62,8 @@ export default function Detail() {
                 <a
                   class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0"
                   href={product.url}
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   Buy{" "}
                 </a>
@@ -70,14 +72,12 @@ export default function Detail() {
             <a class="btn btn-link text-dark p-0 mb-4" href={"/products/"}>
               <i class="far fa-heart mr-2"></i>Add to wish list
             </a>
-            <div class="tab-content mb-5" >
-              <HistoryPriceChart priceHistory={product.priceHistory}/>
+            <div class="tab-content mb-5">
+              <HistoryPriceChart priceHistory={product.priceHistory} />
             </div>
-            
           </div>
         </div>
       </div>
     </section>
-    
   );
 }

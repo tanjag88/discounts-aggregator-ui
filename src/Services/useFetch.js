@@ -7,15 +7,17 @@ export default function useFetch(url) {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [totalPages, setTotalPages] = useState(1);
-  
+  const [noOfProducts, setNoOfProducts] = useState(null);
 
   useEffect(() => {
     isMounted.current = true;
     async function init() {
       try {
         const response = await fetch(baseUrl + url);
-       
+        setNoOfProducts(response.headers.get("x-total-count")); 
         const linkHeader = response.headers.get("Link");
+        
+        
         if (linkHeader) {
         
          setTotalPages(parseInt(linkHeader
@@ -24,10 +26,13 @@ export default function useFetch(url) {
               return item.includes("last");
             })[0]
             .match(/page=([0-9]+)/)[1]));
-        }
+
+          
+        }else {setTotalPages(1); }
        
         
         if (response.ok) {
+          
           const json = await response.json();
           if (isMounted.current) setData(json);
         } else {
@@ -44,11 +49,9 @@ export default function useFetch(url) {
       isMounted.current = false;
     };
   }, [url]);
-  return { data, error, loading, totalPages};
+  return { data, error, loading, totalPages, noOfProducts};
   
 }
 
-export function Fetch({ url, children }) {
-  const { data, loading, error } = useFetch(url);
-  return children(data, loading, error);
-}
+
+

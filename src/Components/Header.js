@@ -9,7 +9,6 @@ import {
   NavDropdown,
   FormControl,
   Button,
-
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -17,12 +16,21 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const history = useHistory();
+  
 
   const handleSearchQuery = (e) => {
     e.preventDefault();
-    history.push({
-      search: `q=${searchQuery}`,
-    });
+    if (history.location.pathname === "/") {
+      
+      history.push({
+        pathname:'/products',
+        search: `?q=${searchQuery}`,
+      });
+    } else {
+      history.push({
+        search: `q=${searchQuery}`,
+      });
+    }
   };
 
   return (
@@ -83,9 +91,8 @@ export default function Header() {
                 }}
               />
               <Button
-                id="button-addon2"
                 type="submit"
-                variant="outline-success"
+                variant="btn btn-outline-dark"
                 onClick={handleSearchQuery}
               >
                 Search
