@@ -8,7 +8,7 @@ export default function HomePage() {
     loading,
     error,
     
-  } = useFetch("products?_sort=popularity&_order=asc");
+  } = useFetch("products?_sort=likes&_order=asc");
 
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;

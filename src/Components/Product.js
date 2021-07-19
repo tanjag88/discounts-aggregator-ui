@@ -1,6 +1,5 @@
 import React from "react";
 
-
 export default function Product({ product }) {
   const { name, price, img, id, url } = product;
 
@@ -9,11 +8,7 @@ export default function Product({ product }) {
       <div className="product text-center">
         <div className="mb-3 position-relative">
           <div className="badge text-white badge-"></div>
-          <a
-            className="d-block"
-            href={`/products/${id}`}
-            
-          >
+          <a className="d-block" href={`/products/${id}`}>
             <img className="img-fluid w-100" src={img} alt="..." />
           </a>
           <div className="product-overlay">
@@ -24,11 +19,7 @@ export default function Product({ product }) {
                 </a>
               </li>
               <li className="list-inline-item m-0 p-0">
-                <a
-                  className="btn btn-sm btn-dark"
-                  href={`/products/${id}`}
-                  
-                >
+                <a className="btn btn-sm btn-dark" href={`/products/${id}`}>
                   View details
                 </a>
               </li>
@@ -56,4 +47,3 @@ export default function Product({ product }) {
     </div>
   );
 }
-

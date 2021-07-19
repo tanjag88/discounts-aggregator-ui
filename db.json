@@ -13,7 +13,7 @@
       "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-67.25.78.62_modularsofabed_arwa.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "popularity":1,
+      "likes": 998,
       "priceHistory": [
         { "amount": 180, "date": 1606861107000 },
         { "amount": 140, "date": 1612217907000 },
@@ -33,11 +33,20 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/151/15136/15136919.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "popularity": 2,
+      "likes": 998,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
@@ -50,14 +59,23 @@
       "active": true,
       "date": "2020-05-19T07:22Z",
       "url": "https://www.structube.com/en_ca/macedonia-concrete-and-mango-wood-dining-table-220-cm-86-39-76?pid=26678",
-      "img": "https://www.structube.com/cdn-cgi/image/width=700,…uct/0/1/01-86.39.76.30_dinningtable_macedonia.jpg",
+      "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-86.39.76.30_dinningtable_macedonia.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "popularity": 3,
+      "likes": 3,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
@@ -73,31 +91,49 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/147/14760/14760372.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "popularity": 4,
+      "likes": 4,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
       "id": 5,
       "price": 700,
       "currency": "CA",
-      "name": "sofa2",
-      "description": "sofa sofa sofa",
+      "name": "ROSA accent table 38cm",
+      "description": "Add a dash of Art Deco glamour to your living space with Rosa, a beautiful circular table made of aluminum. Rosa’s small scale is perfect for placement beside a sofa, while its metallic finish (available in gold or silver) reflects the light. Try this dazzling accent piece in the bedroom, dining room and office, too",
       "key": 1239,
       "active": true,
       "date": "2020-03-19T07:22Z",
-      "url": "https://www.structube.com/en_ca/arwa-interchangeable-sectional-sofabed-with-storage-67-25-78?pid=25458",
-      "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-67.25.78.62_modularsofabed_arwa.jpg",
+      "url": "https://www.structube.com/en_ca/rosa-accent-table-38cm-19-44-10?pid=22592",
+      "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-19.44.10.30_accent-table_rosa.jpg",
       "category": "furniture",
       "seller": "Structube",
       "popularity": 5,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
@@ -113,31 +149,49 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/150/15046/15046676.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "popularity": 6,
+      "likes": 6,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
       "id": 7,
       "price": 400,
       "currency": "CA",
-      "name": "sofa3",
-      "description": "sofa sofa sofa",
+      "name": "CAREY bentwood armchair with ottoman",
+      "description": "The Carey armchair with matching ottoman features modern elm bentwood and ash veneer panels. Its plush padding with soft cotton blend cushion cover hugs your body, perfect for reading a book or relaxing.",
       "key": 123,
       "active": true,
       "date": "2018-03-19T07:22Z",
-      "url": "https://www.structube.com/en_ca/arwa-interchangeable-sectional-sofabed-with-storage-67-25-78?pid=25458",
-      "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-67.25.78.62_modularsofabed_arwa.jpg",
+      "url": "https://www.structube.com/en_ca/carey-bentwood-armchair-with-ottoman-41-21-30?pid=24176",
+      "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-41.21.30.95_armchairwithottoman_carey.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "popularity": 7,
+      "likes": 7,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
@@ -145,8 +199,7 @@
       "price": 8000,
       "currency": "CA",
       "name": "ASUS TUF Dash 15 15.6 Eclipse Grey ",
-  
-      "description":"Powerful and energy efficient, this ASUS TUF Dash F15 gaming laptop is designed with advanced hardware to enhance your gaming experience. It packs an Intel Core i7 quad-core processor and 16GB of DDR4 RAM so you can enjoy your favourite AAA titles to the fullest. Also included is an NVIDIA RTX 3060 graphics card with 6GB of memory so you can play at the highest graphics settings." ,
+      "description": "Powerful and energy efficient, this ASUS TUF Dash F15 gaming laptop is designed with advanced hardware to enhance your gaming experience. It packs an Intel Core i7 quad-core processor and 16GB of DDR4 RAM so you can enjoy your favourite AAA titles to the fullest. Also included is an NVIDIA RTX 3060 graphics card with 6GB of memory so you can play at the highest graphics settings.",
       "key": 12344,
       "active": true,
       "date": "2017-03-19T07:22Z",
@@ -154,31 +207,49 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/152/15263/15263760.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "popularity": 8,
+      "likes": 8,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
       "id": 9,
       "price": 900,
       "currency": "CA",
-      "name": "sofa4",
-      "description": "sofa sofa sofa",
+      "name": "LORETTA velvet 3-seater sofa",
+      "description": "Boasting high arms (and high style!), the Loretta sofa brings you the best of Mid-Century Modern luxury. Covered in exquisite velvet, this showstopper makes your living room feel like a Parisian apartment, while its plush seat makes you feel like you are on cloud nine. Look no further for the poshest place to recline and relax: you’ll find it right in your own home.",
       "key": 12333,
       "active": true,
       "date": "2016-03-19T07:22Z",
-      "url": "https://www.structube.com/en_ca/arwa-interchangeable-sectional-sofabed-with-storage-67-25-78?pid=25458",
-      "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-67.25.78.62_modularsofabed_arwa.jpg",
+      "url": "https://www.structube.com/en_ca/loretta-velvet-3seater-sofa-18-76-63?pid=22502",
+      "img": "https://www.structube.com/media/catalog/product/0/1/01-18.76.63.96_sofa_loretta_1.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "popularity": 9,
+      "likes": 9,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
@@ -194,31 +265,49 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/155/15586/15586665.jpeg",
       "category": "electronics",
       "seller": "BestBuy",
-      "popularity": 10,
+      "likes": 10,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
       "id": 11,
       "price": 500,
       "currency": "CA",
-      "name": "sofa5",
-      "description": "sofa sofa sofa",
+      "name": "TYE queen size bed",
+      "description": "Tye is the easy-going, beachy companion that will set your mind at ease. Its platform base makes choosing a mattress a breeze, and its gapped headboard and warm hue is sure to calm your bedroom and your mind.",
       "key": 1239,
       "active": true,
       "date": "2012-03-19T07:22Z",
-      "url": "https://www.structube.com/en_ca/arwa-interchangeable-sectional-sofabed-with-storage-67-25-78?pid=25458",
-      "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-67.25.78.62_modularsofabed_arwa.jpg",
+      "url": "https://www.structube.com/en_ca/bedtye?pid=29028",
+      "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-17.36.17.97_queenbed_tye_1.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "popularity": 11,
+      "likes": 11,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
@@ -234,11 +323,20 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/149/14934/14934422.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "popularity": 12,
+      "likes": 12,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     }
   ],

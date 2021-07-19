@@ -32,7 +32,8 @@ export default function Header() {
       });
     }
   };
-
+  
+  
   return (
     <header className="header bg-white">
       <div class="container px-0 px-lg-3">
@@ -54,10 +55,20 @@ export default function Header() {
             id="navbarSupportedContent"
           >
             <Nav className="navbar-nav mr-auto">
-              <Nav.Link className="nav-link active" as={Link} to="/">
+              <Nav.Link
+                className="nav-link -active"
+                as={Link}
+                to="/"
+                activeClassName="active"
+              >
                 Home
               </Nav.Link>
-              <Nav.Link className="nav-link" as={Link} to="/products">
+              <Nav.Link
+                className="nav-link"
+                as={Link}
+                to="/products"
+                activeClassName="active"
+              >
                 All Products
               </Nav.Link>
               <NavDropdown title="Categories" id="basic-nav-dropdown">

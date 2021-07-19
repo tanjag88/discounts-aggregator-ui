@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { useParams } from "react-router-dom";
 import useFetch from "../Services/useFetch";
-import HistoryPriceChart from '../Components/HistoryPriceChart';
+import HistoryPriceChart from "../Components/HistoryPriceChart";
 
+import { FaRegHeart, FaHeart } from "react-icons/fa";
+import updateData from "../Services/usePut";
 
 export default function Detail() {
   const { id } = useParams();
   const { data: product, loading, error } = useFetch(`products/${id}`);
- 
+
+  const [liked, setLiked] = useState(false);
+
+  function HandleLike(e) {
+    if(liked){
+      setLiked(false);
+      updateData(`products/${id}`, { ...product, likes: product.likes-=1 });
+    }else{
+      setLiked(true);
+      updateData(`products/${id}`, { ...product, likes: product.likes+=1 });
+    }
+    
+    
+  }
 
   if (error) throw error;
   if (loading) return <h1>loading..</h1>;
   if (!product) return <h1>page not found</h1>;
-
-  
 
   return (
     <section class="py-5">
@@ -57,6 +70,7 @@ export default function Detail() {
             <h1>{product.name}</h1>
             <p class="text-muted lead">{`$${product.price}`}</p>
             <p class="text-small mb-4">{product.description}</p>
+
             <div class="row align-items-stretch mb-4">
               <div class="col-sm-3 pl-sm-0">
                 <a
@@ -69,9 +83,13 @@ export default function Detail() {
                 </a>
               </div>
             </div>
-            <a class="btn btn-link text-dark p-0 mb-4" href={"/products/"}>
-              <i class="far fa-heart mr-2"></i>Add to wish list
-            </a>
+            <button
+              class="btn btn-link text-dark p-0 mb-4"
+              onClick={HandleLike}
+            >
+              {liked ? <FaHeart /> : <FaRegHeart />}
+              <i> {liked ? "Unlike" : "Like"}</i>
+            </button>
             <div class="tab-content mb-5">
               <HistoryPriceChart priceHistory={product.priceHistory} />
             </div>
