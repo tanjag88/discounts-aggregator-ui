@@ -1,7 +1,6 @@
 import React from "react";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-
+import { useState, useContext } from "react";
+import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 import {
   Navbar,
   Nav,
@@ -11,34 +10,32 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import getDefaultFiltersState from "../Services/getDefaultFiltersState";
 
 export default function Header() {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const history = useHistory();
-  
+  const { filtersState, setFiltersState } = useContext(AllFiltersContext);
+  const defaultFiltersState = getDefaultFiltersState();
+  const [searchQuery, setSearchQuery] = useState(
+    filtersState.searchQuery.value
+  );
 
   const handleSearchQuery = (e) => {
     e.preventDefault();
-    if (history.location.pathname === "/") {
-      
-      history.push({
-        pathname:'/products',
-        search: `?q=${searchQuery}`,
-      });
-    } else {
-      history.push({
-        search: `q=${searchQuery}`,
-      });
-    }
+
+    setFiltersState((prevFiltersState) => ({
+      ...prevFiltersState,
+      searchQuery: {
+        ...prevFiltersState.searchQuery,
+        value: searchQuery,
+      },
+    }));
   };
-  
-  
+
   return (
     <header className="header bg-white">
       <div class="container px-0 px-lg-3">
         <Navbar className="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
-          <Navbar.Brand className="navbar-brand" href="/">
+          <Navbar.Brand className="navbar-brand" as={Link} to="/">
             Discounts
           </Navbar.Brand>
           <Navbar.Toggle
@@ -68,35 +65,83 @@ export default function Header() {
                 as={Link}
                 to="/products"
                 activeClassName="active"
+                onClick={(e) => {
+                  setFiltersState(defaultFiltersState);
+                }}
               >
                 All Products
               </Nav.Link>
               <NavDropdown title="Categories" id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/products?category=furniture">
+                <NavDropdown.Item
+                  as={Link}
+                  to="/products?category=furniture"
+                  onClick={(e) => {
+                    setFiltersState({
+                      ...defaultFiltersState,
+                      category: {
+                        ...defaultFiltersState.category,
+
+                        value: ["furniture"],
+                      },
+                    });
+                  }}
+                >
                   Furniture
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/products?category=electronics">
+                <NavDropdown.Item
+                  as={Link}
+                  to="/products?category=electronics"
+                  onClick={(e) => {
+                    setFiltersState({
+                      ...defaultFiltersState,
+                      category: {
+                        ...defaultFiltersState.category,
+                        value: ["electronics"],
+                      },
+                    });
+                  }}
+                >
                   Electronics
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title="Sellers" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/products?seller=Structube">
+                <NavDropdown.Item
+                  as={Link}
+                  to="/products?seller=Structube"
+                  onClick={(e) => {
+                    setFiltersState({
+                      ...defaultFiltersState,
+                      seller: {
+                        ...defaultFiltersState.seller,
+                        value: ["Structube"],
+                      },
+                    });
+                  }}
+                >
                   Structube
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">BestBuy</NavDropdown.Item>
+                <NavDropdown.Item
+                  as={Link}
+                  to="/products?seller=BestBuy"
+                  onClick={(e) => {
+                    setFiltersState({
+                      ...defaultFiltersState,
+                      seller: {
+                        ...defaultFiltersState.seller,
+                        value: ["BestBuy"],
+                      },
+                    });
+                  }}
+                >
+                  BestBuy
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Form inline onSubmit={handleSearchQuery}>
               <FormControl
                 type="text"
                 placeholder="Search"
+                value={searchQuery}
                 onChange={(event) => {
                   setSearchQuery(event.target.value);
                 }}

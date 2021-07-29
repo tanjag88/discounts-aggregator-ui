@@ -1,57 +1,51 @@
 import React from "react";
-import useFetch from "../Services/useFetch";
+import { useContext } from "react";
+import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 
 
-export default function FilterCategory({
-  selectedCategoryFilterCallback,
-  selectedCategoryParam,
-}) {
-  const { data: categories, loading, error } = useFetch("categories");
-
+export default function FilterCategory() {
+  const { filtersState, setFiltersState } = useContext(AllFiltersContext);
+  
   function handelSelectCategory(e) {
-    
-    const selectedCategory = [].concat(selectedCategoryParam);
+    const selectedCategory = [].concat(filtersState.category.value);
+
     if (e.target.checked) {
       selectedCategory.push(e.target.value);
-      selectedCategoryFilterCallback(selectedCategory);
+      setFiltersState((prevFiltersState) => ({
+        ...prevFiltersState,
+        category: { ...prevFiltersState.category, value: selectedCategory },
+        currentPage: { ...prevFiltersState.currentPage, value: 1 },
+      }));
     } else {
-      const newCategoryList = selectedCategoryParam.filter(c=>c!==e.target.value);
-      selectedCategoryFilterCallback(newCategoryList);
+      const newCategoryList = filtersState.category.value.filter(
+        (c) => c !== e.target.value
+      );
+      
+      setFiltersState((prevFiltersState) => ({
+        ...prevFiltersState,
+        category: { ...prevFiltersState.category, value: newCategoryList },
+        currentPage: { ...prevFiltersState.currentPage, value: 1},
+      }));
     }
   }
-
-  const preSelectedCategories = [];
-
-  selectedCategoryParam.forEach((key) => {
-    var item = {};
-    item["name"] = key;
-    preSelectedCategories.push(item);
-  });
-
-  if (error) throw error;
-  if (loading) return <h1>loading products..</h1>;
-  if (categories.length === null) return <h1>products not found</h1>;
 
   return (
     <>
       <h6 class="text-uppercase mb-3">Categories</h6>
 
-      {categories.map((category) => {
+      {filtersState.category.categories.map((c) => {
         return (
-          <div
-            className="custom-control custom-checkbox mb-1"
-            key={category.id}
-          >
+          <div className="custom-control custom-checkbox mb-1" key={c}>
             <input
               className="custom-control-input"
-              id={category.id}
+              id={c}
               type="checkbox"
-              value={category.name}
+              value={c}
               onChange={handelSelectCategory}
-              defaultChecked={selectedCategoryParam.includes(category.name)}
+              checked={filtersState.category.value.includes(c)}
             ></input>
-            <label class="custom-control-label text-small" for={category.id}>
-              {category.name}
+            <label class="custom-control-label text-small" for={c}>
+              {c}
             </label>
           </div>
         );
@@ -59,4 +53,3 @@ export default function FilterCategory({
     </>
   );
 }
-

@@ -1,15 +1,35 @@
 import React from "react";
+import { useContext } from "react";
 
-export default function Sort({ selectedSortAndOrderCallback, sortAndOrder }) {
-  const buttonTittleMap = new Map();
-  buttonTittleMap.set("&_sort=date&_order=desc", "Newest");
-  buttonTittleMap.set("&_sort=price&_order=asc", "Price (low - high)");
-  buttonTittleMap.set("&_sort=price&_order=desc", "Price (high -low)");
-  buttonTittleMap.set("", "Sort By");
+import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 
-  function setSortAndOrder(selectedSortAndOrder, button) {
-   
-    selectedSortAndOrderCallback(selectedSortAndOrder.target.value);  }
+export default function Sort() {
+  const { filtersState, setFiltersState } = useContext(AllFiltersContext);
+  const buttonTittleMap = new Map();buttonTittleMap.set("", "Sort By");
+  buttonTittleMap.set(["date", "desc"], "Newest");
+  buttonTittleMap.set(["price", "asc"], "Price (low - high)");
+  buttonTittleMap.set(["price", "desc"], "Price (high -low)");
+
+  function setSortAndOrder(selectedSortAndOrder) {
+    const data = [
+      selectedSortAndOrder.target.value.split(",")[0],
+      selectedSortAndOrder.target.value.split(",")[1],
+    ];
+
+    setFiltersState((prevFiltersState) => ({
+      ...prevFiltersState,
+      sorting: {
+        ...prevFiltersState.sorting,
+        value: data === null ? "" : data,
+      },
+    }));
+  }
+
+  const isSelected = (option) =>
+    (option[0] === filtersState.sorting.value[0]) &
+    (option[1] === filtersState.sorting.value[1])
+      ? true
+      : false;
 
   return (
     <li class="list-inline-item">
@@ -19,15 +39,17 @@ export default function Sort({ selectedSortAndOrderCallback, sortAndOrder }) {
         data-width="200"
         data-style="bs-select-form-control"
         data-title="Default sorting"
-        title={buttonTittleMap.get(sortAndOrder)}
+        title={buttonTittleMap.get(filtersState.sorting.value)}
         onChange={setSortAndOrder}
       >
-        <option value="default">Default sorting</option>
-        <option value={"&_sort=date&_order=desc"}>Newest</option>
-        <option value={"&_sort=price&_order=asc"}>Price: Low to High</option>
-        <option value={"&_sort=price&_order=desc"}>Price: High to Low</option>
+        {[...buttonTittleMap].map((v) => {
+          return (
+            <option value={v[0]} selected={isSelected(v[0])}>
+              {v[1]}{" "}
+            </option>
+          );
+        })}
       </select>
     </li>
-    
   );
 }

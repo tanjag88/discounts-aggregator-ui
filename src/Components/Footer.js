@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <footer className="bg-dark text-white">
@@ -7,24 +9,14 @@ export default function Footer() {
             <h6 className="text-uppercase mb-3">Customer services</h6>
             <ul className="list-unstyled mb-0">
               <li>
-                <a className="footer-link" href="/">
-                  Help &amp; Contact Us
-                </a>
+                <Link to="/" className="footer-link">
+                  Something
+                </Link>
               </li>
               <li>
-                <a className="footer-link" href="/">
-                  Returns &amp; Refunds
-                </a>
-              </li>
-              <li>
-                <a className="footer-link" href="/">
-                  Online Stores
-                </a>
-              </li>
-              <li>
-                <a className="footer-link" href="/">
-                  Terms &amp; Conditions
-                </a>
+                <Link to="/" className="footer-link">
+                  Something
+                </Link>
               </li>
             </ul>
           </div>
@@ -32,24 +24,14 @@ export default function Footer() {
             <h6 className="text-uppercase mb-3">Company</h6>
             <ul className="list-unstyled mb-0">
               <li>
-                <a className="footer-link" href="/">
-                  What We Do
-                </a>
+                <Link to="/" className="footer-link">
+                  Something
+                </Link>
               </li>
               <li>
-                <a className="footer-link" href="/">
-                  Available Services
-                </a>
-              </li>
-              <li>
-                <a className="footer-link" href="/">
-                  Latest Posts
-                </a>
-              </li>
-              <li>
-                <a className="footer-link" href="/">
-                  FAQs
-                </a>
+                <Link to="/" className="footer-link">
+                  Something
+                </Link>
               </li>
             </ul>
           </div>
@@ -57,31 +39,21 @@ export default function Footer() {
             <h6 className="text-uppercase mb-3">Social media</h6>
             <ul className="list-unstyled mb-0">
               <li>
-                <a className="footer-link" href="/">
-                  Twitter
-                </a>
+                <Link to="/" className="footer-link">
+                  Something
+                </Link>
               </li>
               <li>
-                <a className="footer-link" href="/">
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a className="footer-link" href="/">
-                  Tumblr
-                </a>
-              </li>
-              <li>
-                <a className="footer-link" href="/">
-                  Pinterest
-                </a>
+                <Link to="/" className="footer-link">
+                  Something
+                </Link>
               </li>
             </ul>
           </div>
         </div>
         <div
           className="border-top pt-4"
-          style={{borderColor: "#1d1d1d !important"}}
+          style={{ borderColor: "#1d1d1d !important" }}
         >
           <div className="row">
             <div className="col-lg-6">
@@ -92,12 +64,12 @@ export default function Footer() {
             <div className="col-lg-6 text-lg-right">
               <p className="small text-muted mb-0">
                 Template designed by{" "}
-                <a
+                <Link
                   className="text-white reset-anchor"
                   href="https://bootstraptemple.com/p/bootstrap-ecommerce"
                 >
                   Bootstrap Temple
-                </a>
+                </Link>
               </p>
             </div>
           </div>

@@ -9,27 +9,35 @@ import HomePage from "./Components/HomePage";
 import "./css/style.default.css";
 import Footer from "./Components/Footer";
 
+import PageNotFound from "./Components/PageNotFound";
+
+import { AllFiltersProvider } from "./Contexts/AllFiltersContext";
 
 function App() {
   return (
     <div className="page-holder">
       <Router>
-        <Header />
-        <div className="container">
-          <Switch>
-            <Route path="/products/:id">
-              <Detail />
-            </Route>
-            <Route path="/products">
-              <Products />
-            </Route>
+        <AllFiltersProvider>
+          <Header />
+          <div className="container">
+            <Switch>
+              <Route exact path="/products/:id">
+                <Detail />
+              </Route>
+              <Route exact path="/products">
+                <Products />
+              </Route>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route>
+                <PageNotFound />
+              </Route>
+            </Switch>
+          </div>
+        </AllFiltersProvider>
 
-            <Route path="/">
-              <HomePage />
-            </Route>
-          </Switch>
-        </div>
-        <Footer/>
+        <Footer />
       </Router>
     </div>
   );

@@ -1,11 +1,12 @@
 import React from "react";
-
 import { ThemeProvider } from "@material-ui/styles";
-
 import { createTheme } from "@material-ui/core/styles";
-
 import Slider from "@material-ui/core/Slider";
 import { useState } from "react";
+import { useContext } from "react";
+import { AllFiltersContext } from "../Contexts/AllFiltersContext";
+
+
 
 const sliderTheme = createTheme({
   overrides: {
@@ -27,16 +28,26 @@ function valuetext(value) {
   return `${value}$`;
 }
 
-export default function PriceRange({ priceRangeCallback, selectedValue}) {
- 
-  const [value, setValue] = useState(selectedValue?selectedValue:[0, 100000]);
+export default function PriceRange() {
+  const { filtersState, setFiltersState } = useContext(AllFiltersContext);
 
-  
+
+  const [value, setValue] = useState(
+    filtersState.priceRange.value !== [0, 10000]
+      ? filtersState.priceRange.value
+      : [0, 10000]
+  );
 
   const handleChangeCommitted = () => {
-    priceRangeCallback(
-      `&price_gte=${value[0].toFixed()}&price_lte=${value[1].toFixed()}`
-    );
+   
+    setFiltersState((prevFiltersState) => ({
+      ...prevFiltersState,
+      priceRange: {
+        ...prevFiltersState.priceRange,
+        value: [value[0], value[1]]},
+        currentPage: { ...prevFiltersState.currentPage, value: 1 },
+      }));
+   
   };
 
   const handleChange = (event, newValue) => {
@@ -51,7 +62,7 @@ export default function PriceRange({ priceRangeCallback, selectedValue}) {
         <ThemeProvider theme={sliderTheme}>
           <Slider
             step={50}
-            value={value}
+            value={filtersState.priceRange.value}
             onChangeCommitted={handleChangeCommitted}
             onChange={handleChange}
             valueLabelDisplay="auto"
@@ -66,13 +77,19 @@ export default function PriceRange({ priceRangeCallback, selectedValue}) {
         <div class="row pt-2">
           <div class="col-6">
             <strong class="small font-weight-bold text-uppercase">
-              From <span style={{ color: "green" }}>{`${value[0]}$`} </span>
+              From{" "}
+              <span style={{ color: "green" }}>
+                {`${filtersState.priceRange.value[0]}$`}{" "}
+              </span>
             </strong>
           </div>
 
           <div class="col-6 text-right">
             <strong class="small font-weight-bold text-uppercase">
-              To <span style={{ color: "green" }}>{`${value[1]}$`} </span>
+              To{" "}
+              <span style={{ color: "green" }}>
+                {`${filtersState.priceRange.value[1]}$`}{" "}
+              </span>
             </strong>
           </div>
         </div>

@@ -1,10 +1,22 @@
 import ReactPaginate from "react-paginate";
+import { useContext } from "react";
+import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 
-export default function Paginate({
-  totalPages,
-  pageChangeCallback,
-  currentPage,
-}) {
+
+export default function Paginate({ totalPages }) {
+  const { filtersState, setFiltersState } = useContext(AllFiltersContext);
+ 
+
+  function handlePageChange(data) {
+    setFiltersState((prevFiltersState) => ({
+      ...prevFiltersState,
+      currentPage: {
+        ...prevFiltersState.currentPage,
+        value: data.selected + 1,
+      },
+    }));
+  }
+
   return (
     <nav aria-label="Page navigation example">
       <ReactPaginate
@@ -22,9 +34,9 @@ export default function Paginate({
         nextLinkClassName={"page-link"}
         pageLinkClassName={"page-link"}
         pageClassName={"page-item"}
-        initialPage={currentPage}
-        forcePage={currentPage}
-        onPageChange={pageChangeCallback}
+        initialPage={filtersState.currentPage.value - 1}
+        forcePage={filtersState.currentPage.value - 1}
+        onPageChange={handlePageChange}
         activeClassName={"active"}
         disableInitialCallback={true}
       ></ReactPaginate>

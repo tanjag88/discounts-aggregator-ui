@@ -13,11 +13,20 @@
       "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-67.25.78.62_modularsofabed_arwa.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "likes": 998,
+      "likes": 1002,
       "priceHistory": [
-        { "amount": 180, "date": 1606861107000 },
-        { "amount": 140, "date": 1612217907000 },
-        { "amount": 130, "date": 1614637107000 }
+        {
+          "amount": 180,
+          "date": 1606861107000
+        },
+        {
+          "amount": 140,
+          "date": 1612217907000
+        },
+        {
+          "amount": 130,
+          "date": 1614637107000
+        }
       ]
     },
     {
@@ -62,7 +71,7 @@
       "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-86.39.76.30_dinningtable_macedonia.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "likes": 3,
+      "likes": 2,
       "priceHistory": [
         {
           "amount": 180,

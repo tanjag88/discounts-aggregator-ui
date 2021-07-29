@@ -1,64 +1,49 @@
 import React from "react";
+import { AllFiltersContext } from "../Contexts/AllFiltersContext";
+import { useContext } from "react";
 
-import useFetch from "../Services/useFetch";
+export default function FilterSeller() {
+  const { filtersState, setFiltersState } = useContext(AllFiltersContext);
 
+  function handelSelectSeller(e) {
+    const selectedSeller = [].concat(filtersState.seller.value);
 
-export default function FilterCategory({
-  selectedSellerFilterCallback, selectedSellerParam
-}) {
-  
- 
-  const { data: sellers, loading, error } = useFetch("sellers");
-
-  
-
-function handelSelectSeller(e){
-  
-  const selectedSeller = [].concat(selectedSellerParam);
-  if(e.target.checked){
-    selectedSeller.push(e.target.value);
-    selectedSellerFilterCallback(selectedSeller);
-  }else{
-    const newSellerList = selectedSellerParam.filter(s=>s!==e.target.value);
-    selectedSellerFilterCallback(newSellerList);
-  }
-}
-
-
-const preSelectedSellers = [];
- 
-selectedSellerParam.forEach(key => 
-    {
-      var item = {}
-      item["name"] = key
-      preSelectedSellers.push(item);
+    if (e.target.checked) {
+      selectedSeller.push(e.target.value);
+      setFiltersState((prevFiltersState) => ({
+        ...prevFiltersState,
+        seller: { ...prevFiltersState.seller, value: selectedSeller },
+        currentPage: { ...prevFiltersState.currentPage, value: 1 },
+      }));
+    } else {
+      const newSellerList = filtersState.seller.value.filter(
+        (s) => s !== e.target.value
+      );
+      setFiltersState((prevFiltersState) => ({
+        ...prevFiltersState,
+        seller: { ...prevFiltersState.seller, value: newSellerList },
+        currentPage: { ...prevFiltersState.currentPage, value: 1 },
+      }));
     }
-    );
-
-  if (error) throw error;
-  if (loading) return <h1>loading products..</h1>;
-  if (sellers.length === null) return <h1>products not found</h1>;
+  }
 
   return (
     <>
       <h6 class="text-uppercase mb-3">Sellers</h6>
 
-      {sellers.map((seller) => {
+      {filtersState.seller.sellers.map((s) => {
         return (
-          <div
-            className="custom-control custom-checkbox mb-1"
-            key={seller.id}
-          >
+          <div className="custom-control custom-checkbox mb-1" key={s}>
             <input
               className="custom-control-input"
-              id={seller.id}
+              id={s}
               type="checkbox"
-              value={seller.name}
+              value={s}
               onChange={handelSelectSeller}
-              defaultChecked={selectedSellerParam.includes(seller.name)}
+              checked={filtersState.seller.value.includes(s)}
             ></input>
-            <label class="custom-control-label text-small" for={seller.id}>
-              {seller.name}
+            <label class="custom-control-label text-small" for={s}>
+              {s}
             </label>
           </div>
         );

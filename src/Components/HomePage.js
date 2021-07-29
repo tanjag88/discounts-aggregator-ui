@@ -1,14 +1,19 @@
 import React from "react";
 import PopularProduct from "./PopularProduct";
 import useFetch from "../Services/useFetch";
+import { Link } from "react-router-dom";
+import { AllFiltersContext } from "../Contexts/AllFiltersContext";
+import { useContext } from "react";
+import getDefaultFiltersState from "../Services/getDefaultFiltersState";
 
 export default function HomePage() {
   const {
     data: products,
     loading,
     error,
-    
   } = useFetch("products?_sort=likes&_order=asc");
+  const { setFiltersState } = useContext(AllFiltersContext);
+  const defaultFiltersState = getDefaultFiltersState();
 
   if (error) throw error;
   if (loading) return <h1>loading products..</h1>;
@@ -26,18 +31,21 @@ export default function HomePage() {
                 Newest products
               </p>
               <h1 className="h2 text-uppercase mb-3">Newest products</h1>
-              <a className="btn btn-dark" href={`/products`}>
+              <Link
+                className="btn btn-dark"
+                to="/products"
+                onClick={() => {
+                  setFiltersState(defaultFiltersState);
+                }}
+              >
                 Search products
-              </a>
+              </Link>
             </div>
           </div>
         </div>
       </section>
       <section className="pt-5">
         <header className="text-center">
-          <p className="small text-muted small text-uppercase mb-1">
-            Carefully created collections
-          </p>
           <h2 className="h5 text-uppercase mb-4">Browse our categories</h2>
         </header>
         <div className="row">
@@ -48,33 +56,51 @@ export default function HomePage() {
             </a>
           </div>
           <div className="col-md-4 mb-4 mb-md-0">
-            <a
+            <Link
               className="category-item mb-4"
-              href={"/products?category=furniture"}
+              to="/products?category=furniture"
+              onClick={() => {
+                setFiltersState({
+                  ...defaultFiltersState,
+                  category: {
+                    ...defaultFiltersState.category,
+                    value: ["furniture"],
+                  },
+                });
+              }}
             >
               <img className="img-fluid" src="Images/sofa.png" alt=""></img>
               <strong className="category-item-title">Furniture</strong>
-            </a>
-            <a className="category-item" href="shop.html">
+            </Link>
+            <Link className="category-item" to="shop.html">
               <img className="img-fluid" src="Images/ThisWeek.jpg" alt=""></img>
               <strong className="category-item-title">Something</strong>
-            </a>
+            </Link>
           </div>
           <div className="col-md-4">
-            <a className="category-item" href={"/products?category=electronics"}>
+            <Link
+              className="category-item"
+              to="/products?category=electronics"
+              onClick={() => {
+                setFiltersState({
+                  ...defaultFiltersState,
+                  category: {
+                    ...defaultFiltersState.category,
+                    value: ["electronics"],
+                  },
+                });
+              }}
+            >
               <img className="img-fluid" src="Images/robots.png" alt=""></img>
               <strong className="category-item-title">Electronics</strong>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
 
       <section className="py-5">
         <header>
-          <p class="small text-muted small text-uppercase mb-1">
-            Made the hard way
-          </p>
-          <h2 class="h5 text-uppercase mb-4">Top trending products</h2>
+          <h2 class="h5 text-uppercase mb-4">The most popular products</h2>
         </header>
         <div class="row">
           {products.map((product) => {
@@ -82,26 +108,6 @@ export default function HomePage() {
           })}
         </div>
       </section>
-      <section class="py-5">
-          <div class="container p-0">
-            <div class="row">
-              <div class="col-lg-6 mb-3 mb-lg-0">
-                <h5 class="text-uppercase">Let's be friends!</h5>
-                <p class="text-small text-muted mb-0">Nisi nisi tempor consequat laboris nisi.</p>
-              </div>
-              <div class="col-lg-6">
-                <form action="#">
-                  <div class="input-group flex-column flex-sm-row mb-3">
-                    <input class="form-control form-control-lg py-3" type="email" placeholder="Enter your email address" aria-describedby="button-addon2"></input>
-                    <div class="input-group-append">
-                      <button class="btn btn-dark btn-block" id="button-addon2" type="submit">Subscribe</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-  </div>
+    </div>
   );
 }
