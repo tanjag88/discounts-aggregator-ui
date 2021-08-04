@@ -11,7 +11,7 @@ export default function HomePage() {
     data: products,
     loading,
     error,
-  } = useFetch("products?_sort=likes&_order=asc");
+  } = useFetch("products?_sort=views.length&_order=desc");
   const { setFiltersState } = useContext(AllFiltersContext);
   const defaultFiltersState = getDefaultFiltersState();
 

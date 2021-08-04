@@ -1,34 +1,46 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useContext } from "react";
 import { useParams } from "react-router-dom";
 import useFetch from "../Services/useFetch";
 import HistoryPriceChart from "../Components/HistoryPriceChart";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import updateData from "../Services/updateData";
+import { UserContext } from "../Contexts/UserContext";
 
 export default function Detail() {
   const { id } = useParams();
   const { data: product, loading, error } = useFetch(`products/${id}`);
-
-  const [liked, setLiked] = useState(false);
-  const [isSending, setIsSending] = useState(false);
+  const { userData, setUserData } = useContext(UserContext);
+  const [liked, setLiked] = useState(
+    userData.likedProducts.includes(parseInt(id))
+  );
 
   const handleLike = useCallback(async () => {
-    if (isSending) return;
-    setIsSending(true);
-
-    const newNumberOfLikes = product.likes + (liked ? -1 : 1);
-    const success = await updateData(`products/${id}`, {
-      ...product,
-      likes: newNumberOfLikes,
-    });
-
-    if (success) {
-      setLiked(!liked);
-    } else {
-      console.log("ERERRERER");
+    if (!userData.likedProducts.includes(parseInt(id))) {
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        likedProducts: [...prevUserData.likedProducts, parseInt(id)],
+      }));
+      setLiked(true);
     }
-    setIsSending(false);
-  }, [isSending, liked, product, id]);
+    if (
+      product.likes.length === 0 ||
+      !product.likes.includes(userData.userId)
+    ) {
+      await updateData(`products/${id}`, {
+        ...product,
+        likes: product.likes.concat(userData.userId),
+      });
+    } else {
+      const newLikedList = userData.likedProducts.filter(
+        (p) => p !== parseInt(id)
+      );
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        likedProducts: newLikedList,
+      }));
+      setLiked(false);
+    }
+  }, [id, product, setUserData, userData.likedProducts, userData.userId]);
 
   if (error) return <h1>Product not found</h1>;
   if (loading) return <h1>loading..</h1>;

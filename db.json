@@ -13,7 +13,14 @@
       "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-67.25.78.62_modularsofabed_arwa.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "likes": 1002,
+      "likes": [
+        "dd99bb54-b012-4813-99a3-8b6bc46dd8ec",
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
+      "views": [
+        "dd99bb54-b012-4813-99a3-8b6bc46dd8ec",
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
       "priceHistory": [
         {
           "amount": 180,
@@ -42,7 +49,13 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/151/15136/15136919.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "likes": 998,
+      "likes": [
+        "dd99bb54-b012-4813-99a3-8b6bc46dd8ec",
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
+      "views": [
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
       "priceHistory": [
         {
           "amount": 180,
@@ -71,7 +84,12 @@
       "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-86.39.76.30_dinningtable_macedonia.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "likes": 2,
+      "likes": [
+        "dd99bb54-b012-4813-99a3-8b6bc46dd8ec"
+      ],
+      "views": [
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
       "priceHistory": [
         {
           "amount": 180,
@@ -100,7 +118,10 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/147/14760/14760372.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "likes": 4,
+      "likes": [],
+      "views": [
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
       "priceHistory": [
         {
           "amount": 180,
@@ -129,7 +150,8 @@
       "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-19.44.10.30_accent-table_rosa.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "popularity": 5,
+      "likes": [],
+      "views": [],
       "priceHistory": [
         {
           "amount": 180,
@@ -158,7 +180,12 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/150/15046/15046676.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "likes": 6,
+      "likes": [
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
+      "views": [
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
       "priceHistory": [
         {
           "amount": 180,
@@ -187,7 +214,8 @@
       "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-41.21.30.95_armchairwithottoman_carey.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "likes": 7,
+      "likes": [],
+      "views": [],
       "priceHistory": [
         {
           "amount": 180,
@@ -216,7 +244,8 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/152/15263/15263760.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "likes": 8,
+      "likes": [],
+      "views": [],
       "priceHistory": [
         {
           "amount": 180,
@@ -245,7 +274,8 @@
       "img": "https://www.structube.com/media/catalog/product/0/1/01-18.76.63.96_sofa_loretta_1.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "likes": 9,
+      "likes": [],
+      "views": [],
       "priceHistory": [
         {
           "amount": 180,
@@ -274,7 +304,10 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/155/15586/15586665.jpeg",
       "category": "electronics",
       "seller": "BestBuy",
-      "likes": 10,
+      "likes": [
+        "5678c6b4-f631-4787-becd-de12545be68f"
+      ],
+      "views": [],
       "priceHistory": [
         {
           "amount": 180,
@@ -303,7 +336,8 @@
       "img": "https://www.structube.com/cdn-cgi/image/width=700,height=542.8888888888888,fit=pad,background=%23f2f2f2/media/catalog/product/0/1/01-17.36.17.97_queenbed_tye_1.jpg",
       "category": "furniture",
       "seller": "Structube",
-      "likes": 11,
+      "likes": [],
+      "views": [],
       "priceHistory": [
         {
           "amount": 180,
@@ -332,7 +366,12 @@
       "img": "https://multimedia.bbycastatic.ca/multimedia/products/500x500/149/14934/14934422.jpg",
       "category": "electronics",
       "seller": "BestBuy",
-      "likes": 12,
+      "likes": [
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
+      "views": [
+        "1e5c029d-440e-4edf-af0e-205f29a32699"
+      ],
       "priceHistory": [
         {
           "amount": 180,
