@@ -1,11 +1,11 @@
 import React from "react";
-import Product from "./Product";
-import Paginate from "./Paginate";
-import Sort from "./Sort";
+import Product from "../Components/Product";
+import Paginate from "../Components/Paginate";
+import Sort from "../Components/Sort";
 import { useContext } from "react";
-import FilterCategory from "./FilterCategory";
-import FilterSeller from "./FilterSeller";
-import PriceRange from "./PriceRange";
+import FilterCategory from "../Components/FilterCategory";
+import FilterSeller from "../Components/FilterSeller";
+import PriceRange from "../Components/PriceRange";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 import { useQuery } from "react-query";
 import { fetchProducts } from "../Services/fetchData";

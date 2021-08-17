@@ -1,5 +1,5 @@
 import React from "react";
-import PopularProduct from "./PopularProduct";
+import PopularProduct from "../Components/PopularProduct";
 import { Link } from "react-router-dom";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 import { useContext } from "react";

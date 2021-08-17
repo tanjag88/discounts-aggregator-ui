@@ -1,14 +1,14 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Products from "./Components/Products";
-import Detail from "./Components/Detail";
+import Products from "./Pages/Products";
+import Detail from "./Pages/Detail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./Components/Header";
-import HomePage from "./Components/HomePage";
+import HomePage from "./Pages/HomePage";
 import "./css/style.default.css";
 import Footer from "./Components/Footer";
-import PageNotFound from "./Components/PageNotFound";
+import PageNotFound from "./Pages/PageNotFound";
 import { AllFiltersProvider } from "./Contexts/AllFiltersContext";
 import { UserContextProvider } from "./Contexts/UserContext";
 import { QueryClient, QueryClientProvider } from "react-query";

@@ -40,7 +40,14 @@ export default function Header() {
     <header className="header bg-white">
       <div className="container px-0 px-lg-3">
         <Navbar className="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
-          <Navbar.Brand className="navbar-brand" as={Link} to="/">
+          <Navbar.Brand
+            className="navbar-brand"
+            as={Link}
+            to="/"
+            onClick={(e) => {
+              setSearchQuery("");
+            }}
+          >
             Discounts
           </Navbar.Brand>
           <Navbar.Toggle
@@ -62,6 +69,9 @@ export default function Header() {
                 as={Link}
                 to="/"
                 activeClassName="active"
+                onClick={(e) => {
+                  setSearchQuery("");
+                }}
               >
                 Home
               </Nav.Link>
@@ -72,6 +82,7 @@ export default function Header() {
                 activeClassName="active"
                 onClick={(e) => {
                   setFiltersState(defaultFiltersState);
+                  setSearchQuery("");
                 }}
               >
                 All Products
@@ -89,6 +100,7 @@ export default function Header() {
                         value: ["furniture"],
                       },
                     });
+                    setSearchQuery("");
                   }}
                 >
                   Furniture
@@ -104,6 +116,7 @@ export default function Header() {
                         value: ["electronics"],
                       },
                     });
+                    setSearchQuery("");
                   }}
                 >
                   Electronics
@@ -121,6 +134,7 @@ export default function Header() {
                         value: ["Structube"],
                       },
                     });
+                    setSearchQuery("");
                   }}
                 >
                   Structube
@@ -136,6 +150,7 @@ export default function Header() {
                         value: ["BestBuy"],
                       },
                     });
+                    setSearchQuery("");
                   }}
                 >
                   BestBuy
