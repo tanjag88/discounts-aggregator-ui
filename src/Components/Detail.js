@@ -98,14 +98,14 @@ export default function Detail() {
 
             <div className="row align-items-stretch mb-4">
               <div className="col-sm-3 pl-sm-0">
-                <a
+                <Link
+                  to={{ pathname: product.url }}
                   className="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0"
-                  href={product.url}
                   target="_blank"
                   rel="noreferrer"
                 >
                   Buy{" "}
-                </a>
+                </Link>
               </div>
             </div>
             <button
