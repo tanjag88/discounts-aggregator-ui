@@ -2,10 +2,9 @@ import React from "react";
 import { useContext } from "react";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 
-
 export default function FilterCategory() {
   const { filtersState, setFiltersState } = useContext(AllFiltersContext);
-  
+
   function handelSelectCategory(e) {
     const selectedCategory = [].concat(filtersState.category.value);
 
@@ -20,11 +19,11 @@ export default function FilterCategory() {
       const newCategoryList = filtersState.category.value.filter(
         (c) => c !== e.target.value
       );
-      
+
       setFiltersState((prevFiltersState) => ({
         ...prevFiltersState,
         category: { ...prevFiltersState.category, value: newCategoryList },
-        currentPage: { ...prevFiltersState.currentPage, value: 1},
+        currentPage: { ...prevFiltersState.currentPage, value: 1 },
       }));
     }
   }

@@ -9,7 +9,7 @@ import {
   FormControl,
   Button,
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import getDefaultFiltersState from "../Services/getDefaultFiltersState";
 
 export default function Header() {
@@ -18,6 +18,7 @@ export default function Header() {
   const [searchQuery, setSearchQuery] = useState(
     filtersState.searchQuery.value
   );
+  const history = useHistory();
 
   const handleSearchQuery = (e) => {
     e.preventDefault();
@@ -29,11 +30,15 @@ export default function Header() {
         value: searchQuery,
       },
     }));
+
+    if (!history.location.pathname.includes("products")) {
+      history.push("/products?" + filtersState.url(filtersState));
+    }
   };
 
   return (
     <header className="header bg-white">
-      <div class="container px-0 px-lg-3">
+      <div className="container px-0 px-lg-3">
         <Navbar className="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
           <Navbar.Brand className="navbar-brand" as={Link} to="/">
             Discounts
@@ -42,7 +47,7 @@ export default function Header() {
             className="navbar-toggler navbar-toggler-right"
             aria-controls="navbarSupportedContent"
             type="button"
-            data-Toggle="collapse"
+            data-toggle="collapse"
             data-target="#navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"

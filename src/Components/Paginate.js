@@ -2,10 +2,8 @@ import ReactPaginate from "react-paginate";
 import { useContext } from "react";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 
-
 export default function Paginate({ totalPages }) {
   const { filtersState, setFiltersState } = useContext(AllFiltersContext);
- 
 
   function handlePageChange(data) {
     setFiltersState((prevFiltersState) => ({

@@ -32,12 +32,7 @@ export default function HistoryPriceChart({ priceHistory }) {
   };
   return (
     <div>
-      <CanvasJSChart
-        options={options}
-        
-      />
-      
+      <CanvasJSChart options={options} passive={true} />
     </div>
   );
-
 }

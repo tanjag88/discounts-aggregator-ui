@@ -56,7 +56,7 @@ export default function getDefaultFiltersState() {
       sellers: ["Structube", "BestBuy"],
     },
     priceRange: {
-      value: [0,10000],
+      value: [0, 10000],
     },
     sorting: { value: [] },
     limit: { value: 6 },

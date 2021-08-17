@@ -5,7 +5,8 @@ import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 
 export default function Sort() {
   const { filtersState, setFiltersState } = useContext(AllFiltersContext);
-  const buttonTittleMap = new Map();buttonTittleMap.set("", "Sort By");
+  const buttonTittleMap = new Map();
+  buttonTittleMap.set("", "Sort By");
   buttonTittleMap.set(["date", "desc"], "Newest");
   buttonTittleMap.set(["price", "asc"], "Price (low - high)");
   buttonTittleMap.set(["price", "desc"], "Price (high -low)");

@@ -1,35 +1,39 @@
-import React, { useState, useCallback, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../Services/useFetch";
 import HistoryPriceChart from "../Components/HistoryPriceChart";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import updateData from "../Services/updateData";
 import { UserContext } from "../Contexts/UserContext";
+import { useMutation, useQuery } from "react-query";
+import { fetchProduct } from "../Services/fetchData";
 
 export default function Detail() {
   const { id } = useParams();
-  const { data: product, loading, error } = useFetch(`products/${id}`);
+  const { mutate } = useMutation(updateData);
   const { userData, setUserData } = useContext(UserContext);
   const [liked, setLiked] = useState(
     userData.likedProducts.includes(parseInt(id))
   );
 
-  const handleLike = useCallback(async () => {
+  const { data } = useQuery(["product", `products/${id}`], fetchProduct);
+  if (data && data.error)
+    return <h1>An error has occurred:{data.error.message}</h1>;
+  if (!data) return <h1>loading product..</h1>;
+  const product = data;
+
+  const handleLike = () => {
     if (!userData.likedProducts.includes(parseInt(id))) {
       setUserData((prevUserData) => ({
         ...prevUserData,
         likedProducts: [...prevUserData.likedProducts, parseInt(id)],
       }));
       setLiked(true);
-    }
-    if (
-      product.likes.length === 0 ||
-      !product.likes.includes(userData.userId)
-    ) {
-      await updateData(`products/${id}`, {
-        ...product,
-        likes: product.likes.concat(userData.userId),
-      });
+      if (
+        product.likes.length === 0 ||
+        !product.likes.includes(userData.userId)
+      ) {
+        mutate({ ...product, likes: product.likes.concat(userData.userId) });
+      }
     } else {
       const newLikedList = userData.likedProducts.filter(
         (p) => p !== parseInt(id)
@@ -40,10 +44,8 @@ export default function Detail() {
       }));
       setLiked(false);
     }
-  }, [id, product, setUserData, userData.likedProducts, userData.userId]);
+  };
 
-  if (error) return <h1>Product not found</h1>;
-  if (loading) return <h1>loading..</h1>;
   if (!product) return <h1>page not found</h1>;
 
   return (
@@ -86,8 +88,8 @@ export default function Detail() {
               <li className="list-inline-item m-0">
                 <i className="fas fa-star small text-warning"></i>
               </li>
-              <li class="list-inline-item m-0">
-                <i class="fas fa-star small text-warning"></i>
+              <li className="list-inline-item m-0">
+                <i className="fas fa-star small text-warning"></i>
               </li>
             </ul>
             <h1>{product.name}</h1>

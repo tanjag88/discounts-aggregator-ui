@@ -1,22 +1,33 @@
 import React from "react";
 import PopularProduct from "./PopularProduct";
-import useFetch from "../Services/useFetch";
 import { Link } from "react-router-dom";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 import { useContext } from "react";
 import getDefaultFiltersState from "../Services/getDefaultFiltersState";
+import { useQuery } from "react-query";
+import { fetchProducts } from "../Services/fetchData";
 
 export default function HomePage() {
-  const {
-    data: products,
-    loading,
-    error,
-  } = useFetch("products?_sort=views.length&_order=desc");
+  const getUrl = () => {
+    return "_sort=views.length&_order=desc";
+  };
+
+  const state = {
+    url: getUrl,
+  };
+
+  const result = useQuery(["products", state], fetchProducts);
+  const data = result.data;
+
   const { setFiltersState } = useContext(AllFiltersContext);
   const defaultFiltersState = getDefaultFiltersState();
 
-  if (error) throw error;
-  if (loading) return <h1>loading products..</h1>;
+  if (data && data.error)
+    return <h1>An error has occurred:{data.error.message}</h1>;
+
+  if (result.isLoading) return <h1>loading products..</h1>;
+
+  const products = data.data;
 
   return (
     <div className="container">
@@ -100,11 +111,11 @@ export default function HomePage() {
 
       <section className="py-5">
         <header>
-          <h2 class="h5 text-uppercase mb-4">The most popular products</h2>
+          <h2 className="h5 text-uppercase mb-4">The most popular products</h2>
         </header>
-        <div class="row">
+        <div className="row">
           {products.map((product) => {
-            return <PopularProduct product={product} />;
+            return <PopularProduct product={product} key={product.url} />;
           })}
         </div>
       </section>

@@ -66,7 +66,7 @@ export default function Footer() {
                 Template designed by{" "}
                 <Link
                   className="text-white reset-anchor"
-                  href="https://bootstraptemple.com/p/bootstrap-ecommerce"
+                  to="https://bootstraptemple.com/p/bootstrap-ecommerce"
                 >
                   Bootstrap Temple
                 </Link>

@@ -87,6 +87,7 @@ function AllFiltersProvider({ children }) {
     limit: { value: 6 },
     currentPage: { value: page },
     searchQuery: { value: searchedQuery },
+
     url: getUrl,
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {useHistory } from 'react-router';
+import { useHistory } from "react-router";
 
 export default function PageNotFound() {
   const history = useHistory();

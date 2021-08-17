@@ -1,6 +1,5 @@
 import React from "react";
 import Product from "./Product";
-import useFetch from "../Services/useFetch";
 import Paginate from "./Paginate";
 import Sort from "./Sort";
 import { useContext } from "react";
@@ -8,20 +7,21 @@ import FilterCategory from "./FilterCategory";
 import FilterSeller from "./FilterSeller";
 import PriceRange from "./PriceRange";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
+import { useQuery } from "react-query";
+import { fetchProducts } from "../Services/fetchData";
 
 export default function Products() {
   const { filtersState } = useContext(AllFiltersContext);
-  
-  const {
-    data: products,
-    loading,
-    error,
-    totalPages,
-    noOfProducts,
-  } = useFetch("products?" + filtersState.url(filtersState));
 
-  if (error) throw error;
-  if (loading) return <h1>loading products..</h1>;
+  const result = useQuery(["products", filtersState], fetchProducts);
+  const data = result.data;
+
+  if (data && data.error)
+    return <h1>An error has occurred:{data.error.message}</h1>;
+
+  if (result.isLoading) return <h1>loading products..</h1>;
+
+  const products = data.data;
 
   return (
     <>
@@ -30,9 +30,7 @@ export default function Products() {
           <div className="row">
             <div class="col-lg-3 order-2 order-lg-1">
               <h5 className="text-uppercase mb-4">Filters</h5>
-
               <FilterCategory />
-
               <FilterSeller />
               <PriceRange />
             </div>
@@ -43,10 +41,11 @@ export default function Products() {
                   <p class="text-small text-muted mb-0">
                     Showing{" "}
                     {(parseInt(filtersState.currentPage.value) - 1) * 6 + 1} –{" "}
-                    {noOfProducts < parseInt(filtersState.currentPage.value) * 6
-                      ? noOfProducts
+                    {data.noOfProducts <
+                    parseInt(filtersState.currentPage.value) * 6
+                      ? data.noOfProducts
                       : parseInt(filtersState.currentPage.value) * 6}{" "}
-                    of {noOfProducts} products
+                    of {data.noOfProducts} products
                   </p>
                 </div>
                 <div className="col-lg-6">
@@ -60,12 +59,15 @@ export default function Products() {
                   <h1>products not found</h1>
                 ) : (
                   products.map((product) => {
-                    return <Product product={product} />;
+                    return <Product product={product} key={product.url} />;
                   })
                 )}
               </div>
 
-              <Paginate totalPages={totalPages} noOfProducts={noOfProducts} />
+              <Paginate
+                totalPages={data.totalPages}
+                noOfProducts={data.noOfProducts}
+              />
             </div>
           </div>
         </div>

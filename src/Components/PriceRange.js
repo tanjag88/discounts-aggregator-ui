@@ -6,8 +6,6 @@ import { useState } from "react";
 import { useContext } from "react";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 
-
-
 const sliderTheme = createTheme({
   overrides: {
     MuiSlider: {
@@ -31,7 +29,6 @@ function valuetext(value) {
 export default function PriceRange() {
   const { filtersState, setFiltersState } = useContext(AllFiltersContext);
 
-
   const [value, setValue] = useState(
     filtersState.priceRange.value !== [0, 10000]
       ? filtersState.priceRange.value
@@ -39,15 +36,14 @@ export default function PriceRange() {
   );
 
   const handleChangeCommitted = () => {
-   
     setFiltersState((prevFiltersState) => ({
       ...prevFiltersState,
       priceRange: {
         ...prevFiltersState.priceRange,
-        value: [value[0], value[1]]},
-        currentPage: { ...prevFiltersState.currentPage, value: 1 },
-      }));
-   
+        value: [value[0], value[1]],
+      },
+      currentPage: { ...prevFiltersState.currentPage, value: 1 },
+    }));
   };
 
   const handleChange = (event, newValue) => {
@@ -71,6 +67,7 @@ export default function PriceRange() {
             min={0}
             max={10000}
             valueLabelFormat={(n) => "$" + n.toFixed()}
+            passive={true}
           />
         </ThemeProvider>
 
