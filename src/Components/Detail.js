@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import HistoryPriceChart from "../Components/HistoryPriceChart";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import updateData from "../Services/updateData";
@@ -56,8 +56,8 @@ export default function Detail() {
             <div className="row m-sm-0">
               <div className="col-sm-10 order-1 order-sm-2">
                 <div className="owl-carousel product-slider" data-slider-id="1">
-                  <a
-                    href={product.url}
+                  <Link
+                    to={{ pathname: product.url }}
                     className="d-block"
                     data-lightbox="product"
                     title="Product item 1"
@@ -69,7 +69,7 @@ export default function Detail() {
                       src={product.img}
                       alt="..."
                     ></img>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
