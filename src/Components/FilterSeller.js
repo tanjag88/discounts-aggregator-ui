@@ -29,7 +29,7 @@ export default function FilterSeller() {
 
   return (
     <>
-      <h6 class="text-uppercase mb-3">Sellers</h6>
+      <h6 className="text-uppercase mb-3">Sellers</h6>
 
       {filtersState.seller.sellers.map((s) => {
         return (
@@ -42,7 +42,7 @@ export default function FilterSeller() {
               onChange={handelSelectSeller}
               checked={filtersState.seller.value.includes(s)}
             ></input>
-            <label class="custom-control-label text-small" for={s}>
+            <label className="custom-control-label text-small" htmlFor={s}>
               {s}
             </label>
           </div>

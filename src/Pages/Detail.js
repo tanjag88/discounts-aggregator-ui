@@ -1,27 +1,39 @@
 import React, { useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import HistoryPriceChart from "../Components/HistoryPriceChart";
+import  HistoryPriceChart  from "../Components/HistoryPriceChart";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import updateData from "../Services/updateData";
+import  {useUpdateData}  from "../Services/updateData";
 import { UserContext } from "../Contexts/UserContext";
-import { useMutation, useQuery } from "react-query";
-import { fetchProduct } from "../Services/fetchData";
+
+import {  useFetchProduct } from "../Services/fetchData";
 
 export default function Detail() {
+    
   const { id } = useParams();
-  const { mutate } = useMutation(updateData);
+  const  {mutate}  = useUpdateData();
   const { userData, setUserData } = useContext(UserContext);
   const [liked, setLiked] = useState(
     userData.likedProducts.includes(parseInt(id))
   );
+  const { data } = useFetchProduct(id);
 
-  const { data } = useQuery(["product", `products/${id}`], fetchProduct);
+  // const { data } = useQuery(["product", `products/${id}`], fetchProduct);
   if (data && data.error)
     return <h1>An error has occurred:{data.error.message}</h1>;
-  if (!data) return <h1>loading product..</h1>;
+  if (!data) return <h1 id="loader">loading product..</h1>;
   const product = data;
+   if (!userData.viewedProducts.includes(id)) {
+     setUserData((prevUserData) => ({
+       ...prevUserData,
+       viewedProducts: [...prevUserData.viewedProducts, id],
+     }));
+   }
+   if (product.views.length === 0 || !product.views.includes(userData.userId)) {
+     mutate({ ...product, views: product.views.concat(userData.userId) });
+   }
 
   const handleLike = () => {
+   
     if (!userData.likedProducts.includes(parseInt(id))) {
       setUserData((prevUserData) => ({
         ...prevUserData,
@@ -32,7 +44,10 @@ export default function Detail() {
         product.likes.length === 0 ||
         !product.likes.includes(userData.userId)
       ) {
-        mutate({ ...product, likes: product.likes.concat(userData.userId) });
+        mutate({
+          ...product,
+          likes: product.likes.concat(userData.userId),
+        });
       }
     } else {
       const newLikedList = userData.likedProducts.filter(
@@ -49,6 +64,7 @@ export default function Detail() {
   if (!product) return <h1>page not found</h1>;
 
   return (
+    
     <section className="py-5">
       <div className="container">
         <div className="row mb-5">
@@ -92,7 +108,7 @@ export default function Detail() {
                 <i className="fas fa-star small text-warning"></i>
               </li>
             </ul>
-            <h1>{product.name}</h1>
+            <h1 id="productName">{product.name}</h1>
             <p className="text-muted lead">{`$${product.price}`}</p>
             <p className="text-small mb-4">{product.description}</p>
 
@@ -103,12 +119,14 @@ export default function Detail() {
                   className="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0"
                   target="_blank"
                   rel="noreferrer"
+                  id="buy"
                 >
                   Buy{" "}
                 </Link>
               </div>
             </div>
             <button
+              id="buttonLike"
               className="btn btn-link text-dark p-0 mb-4"
               onClick={handleLike}
             >

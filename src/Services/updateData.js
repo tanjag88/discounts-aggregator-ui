@@ -1,9 +1,16 @@
+import { useMutation } from "react-query";
+
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-export default async function updateData(updatedData) {
-  await fetch(baseUrl + `products/${updatedData.id}`, {
+async function updateData(updatedData) {
+  return await fetch(baseUrl + `products/${updatedData.id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(updatedData),
   });
 }
+
+export const useUpdateData = () => {
+  const { mutate } = useMutation(updateData);
+  return { mutate };
+};

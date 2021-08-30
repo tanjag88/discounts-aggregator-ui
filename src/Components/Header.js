@@ -91,6 +91,7 @@ export default function Header() {
                 <NavDropdown.Item
                   as={Link}
                   to="/products?category=furniture"
+                  key={"selectFurniture"}
                   onClick={(e) => {
                     setFiltersState({
                       ...defaultFiltersState,

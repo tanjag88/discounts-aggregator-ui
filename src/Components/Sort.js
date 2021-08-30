@@ -33,7 +33,7 @@ export default function Sort() {
       : false;
 
   return (
-    <li class="list-inline-item">
+    <li className="list-inline-item">
       <select
         className="selectpicker ml-auto"
         name="sorting"
@@ -45,7 +45,7 @@ export default function Sort() {
       >
         {[...buttonTittleMap].map((v) => {
           return (
-            <option value={v[0]} selected={isSelected(v[0])}>
+            <option value={v[0]} key={v[0]}selected={isSelected(v[0])}>
               {v[1]}{" "}
             </option>
           );

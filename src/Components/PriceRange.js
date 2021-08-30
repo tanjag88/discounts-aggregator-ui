@@ -52,8 +52,8 @@ export default function PriceRange() {
 
   return (
     <>
-      <div class="price-range pt-4 mb-5">
-        <h6 class="text-uppercase mb-4">Price range</h6>
+      <div className="price-range pt-4 mb-5">
+        <h6 className="text-uppercase mb-4">Price range</h6>
         <br></br>
         <ThemeProvider theme={sliderTheme}>
           <Slider
@@ -71,9 +71,9 @@ export default function PriceRange() {
           />
         </ThemeProvider>
 
-        <div class="row pt-2">
-          <div class="col-6">
-            <strong class="small font-weight-bold text-uppercase">
+        <div className="row pt-2">
+          <div className="col-6">
+            <strong className="small font-weight-bold text-uppercase">
               From{" "}
               <span style={{ color: "green" }}>
                 {`${filtersState.priceRange.value[0]}$`}{" "}
@@ -81,8 +81,8 @@ export default function PriceRange() {
             </strong>
           </div>
 
-          <div class="col-6 text-right">
-            <strong class="small font-weight-bold text-uppercase">
+          <div className="col-6 text-right">
+            <strong className="small font-weight-bold text-uppercase">
               To{" "}
               <span style={{ color: "green" }}>
                 {`${filtersState.priceRange.value[1]}$`}{" "}

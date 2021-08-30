@@ -7,13 +7,13 @@ import FilterCategory from "../Components/FilterCategory";
 import FilterSeller from "../Components/FilterSeller";
 import PriceRange from "../Components/PriceRange";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
-import { useQuery } from "react-query";
-import { fetchProducts } from "../Services/fetchData";
+
+import { useFetchProducts } from "../Services/fetchData";
 
 export default function Products() {
   const { filtersState } = useContext(AllFiltersContext);
 
-  const result = useQuery(["products", filtersState], fetchProducts);
+  const result = useFetchProducts(filtersState);
   const data = result.data;
 
   if (data && data.error)
@@ -25,7 +25,7 @@ export default function Products() {
 
   return (
     <>
-      <section className="py-5">
+      <section className="py-5" id="productsPage">
         <div className="container p-0">
           <div className="row">
             <div class="col-lg-3 order-2 order-lg-1">

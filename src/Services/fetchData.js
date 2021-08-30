@@ -1,3 +1,5 @@
+import { useQuery } from "react-query";
+
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 async function fetchProducts(key) {
@@ -33,9 +35,20 @@ async function fetchProducts(key) {
     }
   });
 }
-async function fetchProduct(key) {
-  const res = await fetch(baseUrl + key.queryKey[1]);
+
+const useFetchProducts = (filtersState) => {
+  const result = useQuery(["products", filtersState], fetchProducts);
+  return result;
+};
+
+async function fetchProduct({ queryKey }) {
+  const res = await fetch(baseUrl + queryKey[1]);
   return res.json();
 }
 
-export { fetchProducts, fetchProduct };
+const useFetchProduct = (id) => {
+  const { data } = useQuery(["product", `products/${id}`], fetchProduct);
+  return { data };
+};
+
+export { fetchProducts, fetchProduct, useFetchProduct, useFetchProducts };

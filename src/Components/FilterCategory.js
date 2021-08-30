@@ -30,7 +30,7 @@ export default function FilterCategory() {
 
   return (
     <>
-      <h6 class="text-uppercase mb-3">Categories</h6>
+      <h6 className="text-uppercase mb-3">Categories</h6>
 
       {filtersState.category.categories.map((c) => {
         return (
@@ -43,7 +43,7 @@ export default function FilterCategory() {
               onChange={handelSelectCategory}
               checked={filtersState.category.value.includes(c)}
             ></input>
-            <label class="custom-control-label text-small" for={c}>
+            <label className="custom-control-label text-small" htmlFor={c}>
               {c}
             </label>
           </div>
