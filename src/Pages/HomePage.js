@@ -33,7 +33,7 @@ export default function HomePage() {
     <div className="container">
       <section
         className="hero pb-3 bg-cover bg-center d-flex align-items-center"
-        style={{ background: "url(images/Sale.jpg)" }}
+        style={{ background: "url(Images/Sale.jpg)" }}
       >
         <div className="container py-5">
           <div className="row px-4 px-lg-5">
