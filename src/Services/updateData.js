@@ -11,6 +11,6 @@ async function updateData(updatedData) {
 }
 
 export const useUpdateData = () => {
-  const { mutate } = useMutation(updateData);
-  return { mutate };
+  const { mutateAsync } = useMutation(updateData);
+  return { mutateAsync };
 };

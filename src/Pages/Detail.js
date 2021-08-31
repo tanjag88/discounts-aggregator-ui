@@ -1,16 +1,16 @@
 import React, { useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
-import  HistoryPriceChart  from "../Components/HistoryPriceChart";
+import HistoryPriceChart from "../Components/HistoryPriceChart";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import  {useUpdateData}  from "../Services/updateData";
+import { useUpdateData } from "../Services/updateData";
 import { UserContext } from "../Contexts/UserContext";
 
-import {  useFetchProduct } from "../Services/fetchData";
+import { useFetchProduct } from "../Services/fetchData";
 
 export default function Detail() {
-    
+  //debugger;
   const { id } = useParams();
-  const  {mutate}  = useUpdateData();
+  const { mutateAsync } = useUpdateData();
   const { userData, setUserData } = useContext(UserContext);
   const [liked, setLiked] = useState(
     userData.likedProducts.includes(parseInt(id))
@@ -22,18 +22,21 @@ export default function Detail() {
     return <h1>An error has occurred:{data.error.message}</h1>;
   if (!data) return <h1 id="loader">loading product..</h1>;
   const product = data;
-   if (!userData.viewedProducts.includes(id)) {
-     setUserData((prevUserData) => ({
-       ...prevUserData,
-       viewedProducts: [...prevUserData.viewedProducts, id],
-     }));
-   }
-   if (product.views.length === 0 || !product.views.includes(userData.userId)) {
-     mutate({ ...product, views: product.views.concat(userData.userId) });
-   }
+
+  if (!userData.viewedProducts.includes(id)) {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      viewedProducts: [...prevUserData.viewedProducts, id],
+    }));
+    if (
+      product.views.length === 0 ||
+      !product.views.includes(userData.userId)
+    ) {
+      mutateAsync({ ...product, views: product.views.concat(userData.userId) });
+    }
+  }
 
   const handleLike = () => {
-   
     if (!userData.likedProducts.includes(parseInt(id))) {
       setUserData((prevUserData) => ({
         ...prevUserData,
@@ -44,7 +47,7 @@ export default function Detail() {
         product.likes.length === 0 ||
         !product.likes.includes(userData.userId)
       ) {
-        mutate({
+        mutateAsync({
           ...product,
           likes: product.likes.concat(userData.userId),
         });
@@ -64,7 +67,6 @@ export default function Detail() {
   if (!product) return <h1>page not found</h1>;
 
   return (
-    
     <section className="py-5">
       <div className="container">
         <div className="row mb-5">
