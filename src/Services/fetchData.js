@@ -2,6 +2,7 @@ import { useQuery } from "react-query";
 
 const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
+
 async function fetchProducts(key) {
   const path = key.queryKey[0];
   const state = key.queryKey[1];
@@ -47,6 +48,7 @@ async function fetchProduct({ queryKey }) {
 }
 
 const useFetchProduct = (id) => {
+ // debugger;
   const { data } = useQuery(["product", `products/${id}`], fetchProduct);
   return { data };
 };
