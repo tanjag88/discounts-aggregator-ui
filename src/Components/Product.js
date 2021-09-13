@@ -6,9 +6,9 @@ export default function Product({ product }) {
   const { name, price, img, id } = product;
   
   return (
-    <div className="col-lg-4 col-sm-6" key={id}>
+    <div className="col-lg-4 col-sm-6" key={id} id='product-in-products' >
       <div className="product text-center">
-        <div className="mb-3 position-relative">
+        <div className="mb-3 position-relative"id={`product-id-${id}`}>
           <div className="badge text-white badge-"></div>
           <Link to={`/products/${id}`} className="d-block" >
             <img className="img-fluid w-100" src={img} alt="..." />

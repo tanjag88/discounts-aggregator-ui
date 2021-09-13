@@ -4,10 +4,16 @@ import { Link } from "react-router-dom";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 import { useContext } from "react";
 import getDefaultFiltersState from "../Services/getDefaultFiltersState";
-import { useQuery } from "react-query";
-import { fetchProducts } from "../Services/fetchData";
+import {
+  useFetchProducts,
+  useFetchProductsWithIds,
+} from "../Services/fetchData";
+import { UserContext } from "../Contexts/UserContext";
+import Carousel from "react-grid-carousel";
 
 export default function HomePage() {
+
+  const { userData } = useContext(UserContext);
   const getUrl = () => {
     return "_sort=views.length&_order=desc";
   };
@@ -16,8 +22,18 @@ export default function HomePage() {
     url: getUrl,
   };
 
-  const result = useQuery(["products", state], fetchProducts);
+  const result = useFetchProducts(state);
+
   const data = result.data;
+
+  const resultWithIds = useFetchProductsWithIds(userData.likedProducts);
+  const userLikedProducts = resultWithIds ? resultWithIds.data : [];
+
+  const resultViewedProducts = useFetchProductsWithIds(userData.viewedProducts);
+
+  const userViewedProducts = resultViewedProducts
+    ? resultViewedProducts.data
+    : [];
 
   const { setFiltersState } = useContext(AllFiltersContext);
   const defaultFiltersState = getDefaultFiltersState();
@@ -49,7 +65,7 @@ export default function HomePage() {
                   setFiltersState(defaultFiltersState);
                 }}
               >
-                Search products
+                Go to products
               </Link>
             </div>
           </div>
@@ -83,10 +99,6 @@ export default function HomePage() {
               <img className="img-fluid" src="Images/sofa.png" alt=""></img>
               <strong className="category-item-title">Furniture</strong>
             </Link>
-            <Link className="category-item" to="shop.html">
-              <img className="img-fluid" src="Images/ThisWeek.jpg" alt=""></img>
-              <strong className="category-item-title">Something</strong>
-            </Link>
           </div>
           <div className="col-md-4">
             <Link
@@ -109,16 +121,82 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-5">
-        <header>
-          <h2 className="h5 text-uppercase mb-4">The most popular products</h2>
-        </header>
-        <div className="row">
-          {products.map((product) => {
-            return <PopularProduct product={product} key={product.url} />;
-          })}
-        </div>
-      </section>
+      {products && products.length > 0 ? (
+        <section className="py-5" id="popular-products">
+          <header>
+            <h2 className="h5 text-uppercase mb-4" id="popular-products-header">
+              The most popular products
+            </h2>
+          </header>
+          <Carousel cols={4} rows={1} gap={10} loop>
+            {products.map((p) => {
+              return (
+                <Carousel.Item>
+                  <PopularProduct product={p} key={p.url} />
+                </Carousel.Item>
+              );
+            })}
+          </Carousel>{" "}
+        </section>
+      ) : (
+        ""
+      )}
+
+      {userLikedProducts && userLikedProducts.length > 0 ? (
+        <section className="py-5" id="user-favorite-products">
+          <header>
+            <h2
+              className="h5 text-uppercase mb-4"
+              id="favorite-products-header"
+            >
+              Your favorite products
+            </h2>
+          </header>
+          <Carousel
+            cols={4}
+            rows={1}
+            gap={10}
+            loop
+            hideArrow={userLikedProducts.length < 5 ? true : false}
+          >
+            {userLikedProducts.map((product) => {
+              return (
+                <Carousel.Item>
+                  <PopularProduct product={product} key={product.url} />
+                </Carousel.Item>
+              );
+            })}
+          </Carousel>
+        </section>
+      ) : (
+        ""
+      )}
+      {userViewedProducts && userViewedProducts.length > 0 ? (
+        <section className="py-5" id="viewed-products">
+          <header>
+            <h2 className="h5 text-uppercase mb-4">
+              Your recently viewed products
+            </h2>
+          </header>
+          <Carousel
+            cols={4}
+            rows={1}
+            gap={10}
+            loop
+            hideArrow={userViewedProducts.length < 5 ? true : false}
+          >
+            {userViewedProducts.map((product) => {
+              return (
+                <Carousel.Item>
+                  <PopularProduct product={product} key={product.url} />
+                </Carousel.Item>
+              );
+            })}
+          </Carousel>
+        </section>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

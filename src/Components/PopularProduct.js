@@ -1,36 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Card, Button } from "react-bootstrap";
 
 export default function PopularProduct({ product }) {
-  const { name, price, img, id } = product;
-
+  const { name, img, id } = product;
+  const [hovered, setHovered] = useState(false);
   return (
-    <div className="col-xl-3 col-lg-4 col-sm-6" key={id}>
-      <div className="product text-center">
-        <div className="mb-3 position-relative">
-          <div className="badge text-white badge-"></div>
-          <Link to={`/products/${id}`} className="d-block">
-            <img className="img-fluid w-100" src={img} alt="..." />
-          </Link>
-          <div className="product-overlay">
-            <ul className="mb-0 list-inline">
-              <li className="list-inline-item m-0 p-0">
-                <Link className="btn btn-sm btn-dark" to={`/products/${id}`}>
-                  View details
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+    <>
+      <Card
+        style={{ width: "15rem", height: "19rem" }}
+        id={`product-card-${id}`}
+        className={"product-card"}
+      >
+        <Link to={`/products/${id}`} className="d-block">
+          <Card.Img
+            onMouseOver={() => setHovered(true)}
+            onMouseOut={() => setHovered(false)}
+            style={{
+              width: "14.9rem",
+              height: "12rem",
+              filter: hovered ? "brightness(80%)" : "none",
+            }}
+            variant="top"
+            src={img}
+          />
+        </Link>
 
-        <h6>
-          {" "}
-          <a className="reset-anchor" href={`/products/${id}`}>
-            {name}
-          </a>
-        </h6>
-        <p className="small text-muted">{`$${price}`}</p>
-      </div>
-    </div>
+        <Card.Body>
+          <Card.Title style={{ fontSize: "1rem" }}>
+            <small>{name}</small>
+          </Card.Title>
+          {/* <Link to={`/products/${id}`} className="d-block">
+            <Button variant="primary">Go somewhere</Button>
+          </Link> */}
+        </Card.Body>
+      </Card>
+    </>
   );
 }

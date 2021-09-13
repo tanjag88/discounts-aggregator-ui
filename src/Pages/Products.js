@@ -54,7 +54,7 @@ export default function Products() {
                   </ul>
                 </div>
               </div>
-              <div className="row">
+              <div className="row" id="row-products">
                 {products.length === null || products.length === 0 ? (
                   <h1>products not found</h1>
                 ) : (
