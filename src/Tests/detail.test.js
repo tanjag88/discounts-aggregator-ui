@@ -17,25 +17,7 @@ jest.mock("react", () => ({
   useState: jest.fn(),
 }));
 
-function mountTest(userState, route) {
-  const history = createMemoryHistory();
 
-  history.push(route);
-
-  return mount(
-    <Router initialEntries={["/"]} history={history}>
-      <UserContext.Provider
-        value={{
-          userData: userState,
-        }}
-      >
-        <Route path="products/:id">
-          <Detail />
-        </Route>
-      </UserContext.Provider>
-    </Router>
-  );
-}
 
 function mountTestWithSetData(userState, setUserState, route) {
   const history = createMemoryHistory();
@@ -72,23 +54,13 @@ test("get id from url", () => {
     viewedProducts: [""],
     likedProducts: [""],
   };
+  const setState = jest.fn();
+  useStateMock.mockImplementation((init) => [init, setState]);
 
-  useStateMock.mockImplementation((init) => [init, () => {}]);
-
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
+  
   useFetchProduct.mockImplementation(() => ({}));
   useUpdateData.mockImplementation(() => ({}));
-  mountTest(
-    state,
-
-    "products/5"
-  );
+  mountTestWithSetData(state, setState, "products/5");
 
   expect(useFetchProduct).toHaveBeenCalledWith("5");
 });
@@ -99,22 +71,13 @@ test("render loading if still not have data", () => {
     viewedProducts: [""],
     likedProducts: [""],
   };
-  useStateMock.mockImplementation((init) => [init, () => {}]);
+  const setState = jest.fn();
+  useStateMock.mockImplementation((init) => [init, setState]);
 
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
+  
   useFetchProduct.mockImplementation(() => ({ data: "" }));
   useUpdateData.mockImplementation(() => ({}));
-  const productWrapper = mountTest(
-    state,
-
-    "products/5"
-  );
+  const productWrapper = mountTestWithSetData(state, setState, "products/5");
 
   expect(productWrapper.text()).toContain("loading product..");
 });
@@ -126,24 +89,15 @@ test("render error if error occurred", () => {
     likedProducts: [""],
   };
 
-  useStateMock.mockImplementation((init) => [init, () => {}]);
+  const setState = jest.fn();
+  useStateMock.mockImplementation((init) => [init, setState]);
 
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
+  
   useFetchProduct.mockImplementation(() => ({
     data: { error: { message: "Something went wrong" } },
   }));
   useUpdateData.mockImplementation(() => ({}));
-  const productWrapper = mountTest(
-    state,
-
-    "products/5"
-  );
+  const productWrapper = mountTestWithSetData(state, setState, "products/5");
 
   expect(productWrapper.text()).toContain("Something went wrong");
 });
@@ -154,16 +108,9 @@ test("fetches the product data for the given id", () => {
     viewedProducts: ["5"],
     likedProducts: [""],
   };
+  const setState = jest.fn();
+  useStateMock.mockImplementation((init) => [init, setState]);
 
-  useStateMock.mockImplementation((init) => [init, () => {}]);
-
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
   useFetchProduct.mockImplementation(() => ({
     data: {
       id: 5,
@@ -198,11 +145,7 @@ test("fetches the product data for the given id", () => {
     },
   }));
   useUpdateData.mockImplementation(() => ({}));
-  const productWrapper = mountTest(
-    state,
-
-    "products/5"
-  );
+  const productWrapper = mountTestWithSetData(state, setState, "products/5");
   const linkBuy = productWrapper.find('a[id="buy"]');
   expect(linkBuy.props().href).toEqual(
     "https://www.structube.com/en_ca/rosa-accent-table-38cm-19-44-10?pid=22592"
@@ -217,13 +160,7 @@ test("click like product = call setLiked and setUserData", () => {
     likedProducts: [],
   };
 
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
 
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
   useFetchProduct.mockImplementation(() => ({
     data: {
       id: 5,
@@ -258,21 +195,22 @@ test("click like product = call setLiked and setUserData", () => {
     },
   }));
 
-  const changeLiked = jest.fn();
-  const changeData = jest.fn();
+  const setState = jest.fn();
+  const setUserData = jest.fn();
   const mutateAsync = jest.fn();
   useUpdateData.mockImplementation(() => ({ mutateAsync }));
-  useStateMock.mockImplementation((init) => [init, changeLiked]);
+  useStateMock.mockImplementation((init) => [init, setState]);
 
-  const productWrapper = mountTestWithSetData(state, changeData, "products/5");
+  const productWrapper = mountTestWithSetData(state, setUserData, "products/5");
 
   const buttonLike = productWrapper.find('button[id="buttonLike"]');
 
   buttonLike.simulate("click");
-  expect(changeData).toHaveBeenCalledTimes(1);
-  expect(changeData.mock.calls[0][0](state).likedProducts).toEqual([5]);
-  expect(changeLiked).toHaveBeenCalledTimes(1);
-  expect(changeLiked).toHaveBeenCalledWith(true);
+  expect(setState).toHaveBeenCalledTimes(1);
+  expect(setState).toHaveBeenCalledWith(true);
+  expect(setUserData).toHaveBeenCalledTimes(2);
+  expect(setUserData.mock.calls[0][0]).toEqual(state);
+  expect(setUserData.mock.calls[1][0](state).likedProducts).toEqual([5]);
 });
 
 test("if click like product = updateProduct  and put correct userId in likes", () => {
@@ -282,13 +220,7 @@ test("if click like product = updateProduct  and put correct userId in likes", (
     likedProducts: [],
   };
 
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
+  
   useFetchProduct.mockImplementation(() => ({
     data: {
       id: 5,
@@ -325,11 +257,10 @@ test("if click like product = updateProduct  and put correct userId in likes", (
   const mutateAsync = jest.fn();
   useUpdateData.mockImplementation(() => ({ mutateAsync }));
 
-  const changeLiked = jest.fn();
-  const changeData = jest.fn();
-  useStateMock.mockImplementation((init) => [init, changeLiked]);
+  const setState = jest.fn();
+  useStateMock.mockImplementation((init) => [init, setState]);
 
-  const productWrapper = mountTestWithSetData(state, changeData, "products/5");
+  const productWrapper = mountTestWithSetData(state, setState, "products/5");
 
   const buttonLike = productWrapper.find('button[id="buttonLike"]');
 
@@ -345,15 +276,9 @@ test("put the correct userID in views, if user for the first time is opening tha
     likedProducts: [],
   };
 
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
-  const changeData = jest.fn();
-  useStateMock.mockImplementation((init) => [init, () => {}]);
+  const setUserData = jest.fn();
+  const setState = jest.fn();
+  useStateMock.mockImplementation((init) => [init, setState]);
   useFetchProduct.mockImplementation(() => ({
     data: {
       id: 5,
@@ -390,14 +315,16 @@ test("put the correct userID in views, if user for the first time is opening tha
   const mutateAsync = jest.fn();
   useUpdateData.mockImplementation(() => ({ mutateAsync }));
 
-  mountTestWithSetData(state, changeData, "products/5");
+  mountTestWithSetData(state, setUserData, "products/5");
   expect(mutateAsync).toHaveBeenCalledTimes(1);
   expect(mutateAsync.mock.calls[0][0].views).toEqual([
     "ba389edc-c211-4742-86d5-2fdf8e71a3f3",
     "88",
   ]);
-  expect(changeData).toHaveBeenCalledTimes(1);
-  expect(changeData.mock.calls[0][0](state).viewedProducts).toEqual(["5"]);
+  expect(setState).toHaveBeenCalledTimes(1);
+  expect(setState.mock.calls[0][0](state).viewedProducts).toEqual(["5"]);
+  expect(setUserData).toHaveBeenCalledTimes(1);
+  expect(setUserData).toHaveBeenCalledWith(state);
 });
 test("not call update user and product data, if user already viewed that product", () => {
   const state = {
@@ -406,14 +333,8 @@ test("not call update user and product data, if user already viewed that product
     likedProducts: [],
   };
 
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
-  const changeData = jest.fn();
+ 
+  const setState = jest.fn();
   useStateMock.mockImplementation((init) => [init, () => {}]);
   useFetchProduct.mockImplementation(() => ({
     data: {
@@ -449,11 +370,12 @@ test("not call update user and product data, if user already viewed that product
     },
   }));
   const mutateAsync = jest.fn();
+   const setUserData = jest.fn();
   useUpdateData.mockImplementation(() => ({ mutateAsync }));
 
-  mountTestWithSetData(state, changeData, "products/5");
+  mountTestWithSetData(state, setUserData, "products/5");
   expect(mutateAsync).toHaveBeenCalledTimes(0);
-  expect(changeData).toHaveBeenCalledTimes(0);
+  expect(setState).toHaveBeenCalledTimes(0);
 });
 
 test("check if href on link buy go to correct product store url when click buy", () => {
@@ -462,16 +384,10 @@ test("check if href on link buy go to correct product store url when click buy",
     viewedProducts: ["5"],
     likedProducts: [""],
   };
+  const setState = jest.fn();
+  useStateMock.mockImplementation((init) => [init, setState]);
 
-  useStateMock.mockImplementation((init) => [init, () => {}]);
-
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
+ 
   useFetchProduct.mockImplementation(() => ({
     data: {
       id: 5,
@@ -506,8 +422,8 @@ test("check if href on link buy go to correct product store url when click buy",
     },
   }));
   useUpdateData.mockImplementation(() => ({}));
-
-  const productWrapper = mountTest(state, "products/5");
+ const setUserData = jest.fn();
+  const productWrapper = mountTestWithSetData(state, setUserData, "products/5");
 
   const linkBuy = productWrapper.find('a[id="buy"]');
 
@@ -524,16 +440,11 @@ test("if user for the first time is opening the product detail page, check if up
     viewedProducts: [],
     likedProducts: [],
   };
+  const setState = jest.fn();
+   const setUserData = jest.fn();
+  useStateMock.mockImplementation((init) => [init, setState]);
 
-  useStateMock.mockImplementation((init) => [init, () => {}]);
-
-  jest.mock("../Services/fetchData", () => ({
-    useFetchProduct: jest.fn(),
-  }));
-
-  jest.mock("../Services/updateData", () => ({
-    useUpdateData: jest.fn(),
-  }));
+  
   useFetchProduct.mockImplementation(() => ({
     data: {
       id: 5,
@@ -567,13 +478,13 @@ test("if user for the first time is opening the product detail page, check if up
       ],
     },
   }));
-  const changeData = jest.fn();
+
   const mutateAsync = jest.fn();
   useUpdateData.mockImplementation(() => ({ mutateAsync }));
 
-  mountTestWithSetData(state, changeData, "products/5");
-  expect(changeData).toHaveBeenCalledTimes(1);
-  expect(changeData.mock.calls[0][0](state).viewedProducts).toEqual(["5"]);
+  mountTestWithSetData(state, setUserData, "products/5");
+  expect(setState).toHaveBeenCalledTimes(1);
+  expect(setState.mock.calls[0][0](state).viewedProducts).toEqual(["5"]);
   expect(mutateAsync).toHaveBeenCalledTimes(1);
   expect(mutateAsync.mock.calls[0][0].views).toContain("10");
 });
