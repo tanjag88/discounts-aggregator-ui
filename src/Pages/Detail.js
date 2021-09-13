@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import HistoryPriceChart from "../Components/HistoryPriceChart";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -8,7 +8,6 @@ import { UserContext } from "../Contexts/UserContext";
 import { useFetchProduct } from "../Services/fetchData";
 
 export default function Detail() {
-  //debugger;
   const { id } = useParams();
   const { mutateAsync } = useUpdateData();
   const { userData, setUserData } = useContext(UserContext);
@@ -17,14 +16,20 @@ export default function Detail() {
   );
   const { data } = useFetchProduct(id);
 
-  // const { data } = useQuery(["product", `products/${id}`], fetchProduct);
+  const [localProductData, setLocalProductData] = useState(userData);
+
+  useEffect(() => {
+    setUserData(localProductData);
+  }, [localProductData, setUserData]);
+
   if (data && data.error)
     return <h1>An error has occurred:{data.error.message}</h1>;
   if (!data) return <h1 id="loader">loading product..</h1>;
   const product = data;
 
-  if (!userData.viewedProducts.includes(id)) {
-    setUserData((prevUserData) => ({
+  if (!localProductData.viewedProducts.includes(id)) {
+    // debugger;
+    setLocalProductData((prevUserData) => ({
       ...prevUserData,
       viewedProducts: [...prevUserData.viewedProducts, id],
     }));
