@@ -6,33 +6,36 @@ import { useUpdateData } from "../Services/updateData";
 import { UserContext } from "../Contexts/UserContext";
 
 import { useFetchProduct } from "../Services/fetchData";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addLikedProduct,
+  addViewedProduct,
+  removeLikedProducts,
+} from "../features/userSlice";
 
 export default function Detail() {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const { mutateAsync } = useUpdateData();
-  const { userData, setUserData } = useContext(UserContext);
+
+  const userData = useSelector((state) => state.user);
+
+  
   const [liked, setLiked] = useState(
-    userData.likedProducts.includes(parseInt(id))
+    userData.likedProducts.includes(id)
   );
   const { data } = useFetchProduct(id);
 
-  const [localProductData, setLocalProductData] = useState(userData);
-
-  useEffect(() => {
-    setUserData(localProductData);
-  }, [localProductData, setUserData]);
+  
 
   if (data && data.error)
     return <h1>An error has occurred:{data.error.message}</h1>;
   if (!data) return <h1 id="loader">loading product..</h1>;
   const product = data;
 
-  if (!localProductData.viewedProducts.includes(id)) {
-    // debugger;
-    setLocalProductData((prevUserData) => ({
-      ...prevUserData,
-      viewedProducts: [...prevUserData.viewedProducts, id],
-    }));
+  if (!userData.viewedProducts.includes(id)) {
+    dispatch(addViewedProduct(id));
+
     if (
       product.views.length === 0 ||
       !product.views.includes(userData.userId)
@@ -41,12 +44,14 @@ export default function Detail() {
     }
   }
 
-  const handleLike = () => {
-    if (!userData.likedProducts.includes(parseInt(id))) {
-      setUserData((prevUserData) => ({
-        ...prevUserData,
-        likedProducts: [...prevUserData.likedProducts, parseInt(id)],
-      }));
+  
+
+  function handleLike() {
+   
+    if (!userData.likedProducts.includes(id)) {
+      dispatch(addLikedProduct(id));
+
+      
       setLiked(true);
       if (
         product.likes.length === 0 ||
@@ -58,17 +63,11 @@ export default function Detail() {
         });
       }
     } else {
-      const newLikedList = userData.likedProducts.filter(
-        (p) => p !== parseInt(id)
-      );
-      setUserData((prevUserData) => ({
-        ...prevUserData,
-        likedProducts: newLikedList,
-      }));
+      
+      dispatch(removeLikedProducts(id));
       setLiked(false);
     }
-  };
-
+  }
   if (!product) return <h1>page not found</h1>;
 
   return (

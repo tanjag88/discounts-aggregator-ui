@@ -8,12 +8,14 @@ import {
   useFetchProducts,
   useFetchProductsWithIds,
 } from "../Services/fetchData";
-import { UserContext } from "../Contexts/UserContext";
+
 import Carousel from "react-grid-carousel";
+import { useSelector } from "react-redux";
 
 export default function HomePage() {
 
-  const { userData } = useContext(UserContext);
+  
+  const userData = useSelector((state) => state.user);
   const getUrl = () => {
     return "_sort=views.length&_order=desc";
   };

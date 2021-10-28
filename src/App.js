@@ -10,7 +10,6 @@ import "./css/style.default.css";
 import Footer from "./Components/Footer";
 import PageNotFound from "./Pages/PageNotFound";
 import { AllFiltersProvider } from "./Contexts/AllFiltersContext";
-import { UserContextProvider } from "./Contexts/UserContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -20,8 +19,7 @@ function App() {
     <div className="page-holder">
       <Router>
         <QueryClientProvider client={queryClient}>
-          <UserContextProvider>
-            <AllFiltersProvider>
+           <AllFiltersProvider>
               <Header />
               <div className="container">
                 <Switch>
@@ -40,7 +38,6 @@ function App() {
                 </Switch>
               </div>
             </AllFiltersProvider>
-          </UserContextProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
 

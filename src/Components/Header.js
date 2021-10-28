@@ -14,6 +14,7 @@ import getDefaultFiltersState from "../Services/getDefaultFiltersState";
 
 export default function Header() {
   const { filtersState, setFiltersState } = useContext(AllFiltersContext);
+
   const defaultFiltersState = getDefaultFiltersState();
   const [searchQuery, setSearchQuery] = useState(
     filtersState.searchQuery.value
@@ -35,6 +36,8 @@ export default function Header() {
       history.push("/products?" + filtersState.url(filtersState));
     }
   };
+
+  
 
   return (
     <header className="header bg-white">
