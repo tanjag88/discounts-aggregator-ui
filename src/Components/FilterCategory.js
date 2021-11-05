@@ -1,30 +1,35 @@
 import React from "react";
 import { useContext } from "react";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
+import { useSelector, useDispatch } from "react-redux";
+import { addCategory, removeCategory } from "../features/filtersSlice";
 
 export default function FilterCategory() {
-  const { filtersState, setFiltersState } = useContext(AllFiltersContext);
-
+  // const { filtersState, setFiltersState } = useContext(AllFiltersContext);
+ const filtersState = useSelector((state) => state.filters);
+ const dispatch = useDispatch();
   function handelSelectCategory(e) {
-    const selectedCategory = [].concat(filtersState.category.value);
+    const selectedCategories = [].concat(filtersState.category.value);
 
     if (e.target.checked) {
-      selectedCategory.push(e.target.value);
-      setFiltersState((prevFiltersState) => ({
-        ...prevFiltersState,
-        category: { ...prevFiltersState.category, value: selectedCategory },
-        currentPage: { ...prevFiltersState.currentPage, value: 1 },
-      }));
+      selectedCategories.push(e.target.value);
+      dispatch(addCategory(selectedCategories))
+      // setFiltersState((prevFiltersState) => ({
+      //   ...prevFiltersState,
+      //   category: { ...prevFiltersState.category, value: selectedCategory },
+      //   currentPage: { ...prevFiltersState.currentPage, value: 1 },
+      // }));
     } else {
-      const newCategoryList = filtersState.category.value.filter(
-        (c) => c !== e.target.value
-      );
+      // const newCategoryList = filtersState.category.value.filter(
+      //   (c) => c !== e.target.value
+      // );
+      dispatch(removeCategory(e.target.value));
 
-      setFiltersState((prevFiltersState) => ({
-        ...prevFiltersState,
-        category: { ...prevFiltersState.category, value: newCategoryList },
-        currentPage: { ...prevFiltersState.currentPage, value: 1 },
-      }));
+      // setFiltersState((prevFiltersState) => ({
+      //   ...prevFiltersState,
+      //   category: { ...prevFiltersState.category, value: newCategoryList },
+      //   currentPage: { ...prevFiltersState.currentPage, value: 1 },
+      // }));
     }
   }
 

@@ -3,7 +3,6 @@ import { useParams, Link } from "react-router-dom";
 import HistoryPriceChart from "../Components/HistoryPriceChart";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { useUpdateData } from "../Services/updateData";
-import { UserContext } from "../Contexts/UserContext";
 
 import { useFetchProduct } from "../Services/fetchData";
 import { useSelector, useDispatch } from "react-redux";

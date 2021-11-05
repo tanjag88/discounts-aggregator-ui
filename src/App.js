@@ -19,25 +19,25 @@ function App() {
     <div className="page-holder">
       <Router>
         <QueryClientProvider client={queryClient}>
-           <AllFiltersProvider>
-              <Header />
-              <div className="container">
-                <Switch>
-                  <Route exact path="/products/:id">
-                    <Detail />
-                  </Route>
-                  <Route exact path="/products">
-                    <Products />
-                  </Route>
-                  <Route exact path="/">
-                    <HomePage />
-                  </Route>
-                  <Route>
-                    <PageNotFound />
-                  </Route>
-                </Switch>
-              </div>
-            </AllFiltersProvider>
+          <AllFiltersProvider>
+            <Header />
+            <div className="container">
+              <Switch>
+                <Route exact path="/products/:id">
+                  <Detail />
+                </Route>
+                <Route exact path="/products">
+                  <Products />
+                </Route>
+                <Route exact path="/">
+                  <HomePage />
+                </Route>
+                <Route>
+                  <PageNotFound />
+                </Route>
+              </Switch>
+            </div>
+          </AllFiltersProvider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
 

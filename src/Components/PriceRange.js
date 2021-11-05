@@ -5,6 +5,8 @@ import Slider from "@material-ui/core/Slider";
 import { useState } from "react";
 import { useContext } from "react";
 import { AllFiltersContext } from "../Contexts/AllFiltersContext";
+import { useDispatch, useSelector } from "react-redux";
+import { setPriceRange } from "../features/filtersSlice";
 
 const sliderTheme = createTheme({
   overrides: {
@@ -27,8 +29,9 @@ function valuetext(value) {
 }
 
 export default function PriceRange() {
-  const { filtersState, setFiltersState } = useContext(AllFiltersContext);
-
+  // const { filtersState, setFiltersState } = useContext(AllFiltersContext);
+ const filtersState = useSelector((state)=>state.filters);
+ const dispatch = useDispatch();
   const [value, setValue] = useState(
     filtersState.priceRange.value !== [0, 10000]
       ? filtersState.priceRange.value
@@ -36,14 +39,15 @@ export default function PriceRange() {
   );
 
   const handleChangeCommitted = () => {
-    setFiltersState((prevFiltersState) => ({
-      ...prevFiltersState,
-      priceRange: {
-        ...prevFiltersState.priceRange,
-        value: [value[0], value[1]],
-      },
-      currentPage: { ...prevFiltersState.currentPage, value: 1 },
-    }));
+    dispatch(setPriceRange([value[0], value[1]]));
+    // setFiltersState((prevFiltersState) => ({
+    //   ...prevFiltersState,
+    //   priceRange: {
+    //     ...prevFiltersState.priceRange,
+    //     value: [value[0], value[1]],
+    //   },
+    //   currentPage: { ...prevFiltersState.currentPage, value: 1 },
+    // }));
   };
 
   const handleChange = (event, newValue) => {
