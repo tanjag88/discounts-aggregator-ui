@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Introduction
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Dear reader, this project intention is to help me learn React by doing not just reading and following courses.   
+The idea behind is to be UI for a backend service that will crawl the web for discounts.
 
-## Available Scripts
+I have split my learning into multiple sub projects or refactoring's of this code. I started with the plan to learn React, ReactRedux, React Callbacks, React Context, and decided to implement my application in all of this approaches.
 
-In the project directory, you can run:
+This codebase is deployed on [heroku](https://discaunts-aggregator-ui.herokuapp.com/) so please fell free to check it out. The branch that is synced with heroku is react-query.
 
-### `npm start`
+This project and also my learning is still not done, I'm continuing to learn by doing, and I'll be updating this repository as I go.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+My main goal is to find job as react developer, please check out my [resume](https://www.linkedin.com/in/tgolibegovska/).
+I'm located in Vancouver BC Canada, if you are local company or would like remote junior React developer please reach out. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Code structure
 
-### `npm test`
+Code is split into multiple branches and each of them represents learning path that I have taken. All the implementation in all of the branches tries to keep the same features across all of them.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Branches
 
-### `npm run build`
+### main
+This is where I started with React. Here I decided to implement my application in the simplest form by only using react hooks. This branch contains the least of features.
+This helped me grasp the simplest concepts and also allowed me to build on top of them and learn more as I go.
+Here I learned the basic concepts of React Components, component state variables.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+[Link](https://github.com/tanjag88/discounts-aggregator-ui) to main branch code.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### react-context
+My second learning activity was React Context, this is build on-top of main branch and here I was learning the concepts of how to propagate data, locally persist data in state and share it with other components. This helped me learn how I can create bigger React projects and easily understand how the data flows.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+[Link](https://github.com/tanjag88/discounts-aggregator-ui/tree/react-context) to react-context branch code.
 
-### `npm run eject`
+### react-query
+While learning React Context I discovered a project called React Query. This project which is intended to simplify the interaction between React and Backed seemed like interesting learning opportunity and I decided to create this branch.
+Here I learned the basics of React Query and integrate it in my app.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The react-query branch is followup from react-context where I change the interaction with backend to be done via React Query
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[Link](https://github.com/tanjag88/discounts-aggregator-ui/tree/react-query) to react-query branch code.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### react-redux
+React Redux is one of the most widely used state/store management library, and I had to learn it.
+This branch is follow up form react-query and I'm changing the implementation of React Context to React Redux.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[Link](https://github.com/tanjag88/discounts-aggregator-ui/tree/react-redux) to react-redux branch code.
