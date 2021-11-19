@@ -4,8 +4,7 @@ const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
 async function fetchProducts(key) {
   const path = key.queryKey[0];
-  const state = key.queryKey[1];
-  const url = state.url(state);
+  const url = key.queryKey[1];
 
   return fetch(baseUrl + path + "?" + url).then(async (response) => {
     const data = await response.json();
@@ -47,12 +46,10 @@ async function fetchProduct({ queryKey }) {
 }
 
 const useFetchProduct = (id) => {
-  // debugger;
   const { data } = useQuery(["product", `products/${id}`], fetchProduct);
   return { data };
 };
 const useFetchProductsWithIds = (ids) => {
-
   const url = `products?id=` + ids.join("&id=");
   const { data } = useQuery(["product", url], fetchProduct);
   return { data };

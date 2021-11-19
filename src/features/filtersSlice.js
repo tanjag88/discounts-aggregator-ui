@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const defaultState = {
   category: {
     value: [],
@@ -27,12 +28,13 @@ const initialState = {
     sellers: ["Structube", "BestBuy"],
   },
   priceRange: {
-    value: [],
+    value: [0, 10000],
   },
   sorting: { value: ["views.length", "desc"] },
   limit: { value: "" },
   currentPage: { value: "" },
   searchQuery: { value: "" },
+  
 };
 
 export const filtersSlice = createSlice({
@@ -48,6 +50,7 @@ export const filtersSlice = createSlice({
       state.limit.value = defaultState.limit.value;
       state.currentPage.value = defaultState.currentPage.value;
       state.searchQuery.value = defaultState.searchQuery.value;
+      
     },
     setSellerResetFilters: (state, action) => {
       state.seller.value = action.payload;
@@ -59,7 +62,7 @@ export const filtersSlice = createSlice({
       state.searchQuery.value = defaultState.searchQuery.value;
     },
     setHomePageSortResetFilters: (state, action) => {
-      state.sorting.value = [action.payload];
+      state.sorting.value = action.payload;
       state.seller.value = initialState.seller.value;
       state.category.value = initialState.category.value;
       state.priceRange.value = initialState.priceRange.value;
@@ -71,6 +74,7 @@ export const filtersSlice = createSlice({
     addCategory: (state, action) => {
       state.category.value = action.payload;
       state.currentPage.value = 1;
+
     },
     removeCategory: (state, action) => {
       state.category.value = state.category.value.filter(

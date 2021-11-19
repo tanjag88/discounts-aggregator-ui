@@ -1,30 +1,20 @@
 import React from "react";
 import PopularProduct from "../Components/PopularProduct";
 import { Link } from "react-router-dom";
-import { AllFiltersContext } from "../Contexts/AllFiltersContext";
-import { useContext } from "react";
-import getDefaultFiltersState from "../Services/getDefaultFiltersState";
 import {
   useFetchProducts,
   useFetchProductsWithIds,
 } from "../Services/fetchData";
 
 import Carousel from "react-grid-carousel";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { resetFilters, setCategoryResetFilters } from "../features/filtersSlice";
 
 export default function HomePage() {
-
-  
   const userData = useSelector((state) => state.user);
-  const getUrl = () => {
-    return "_sort=views.length&_order=desc";
-  };
+  const dispatch = useDispatch();
 
-  const state = {
-    url: getUrl,
-  };
-
-  const result = useFetchProducts(state);
+  const result = useFetchProducts("_sort=views.length&_order=desc");
 
   const data = result.data;
 
@@ -37,8 +27,6 @@ export default function HomePage() {
     ? resultViewedProducts.data
     : [];
 
-  const { setFiltersState } = useContext(AllFiltersContext);
-  const defaultFiltersState = getDefaultFiltersState();
 
   if (data && data.error)
     return <h1>An error has occurred:{data.error.message}</h1>;
@@ -64,7 +52,7 @@ export default function HomePage() {
                 className="btn btn-dark"
                 to="/products"
                 onClick={() => {
-                  setFiltersState(defaultFiltersState);
+                  dispatch(resetFilters());
                 }}
               >
                 Go to products
@@ -89,13 +77,7 @@ export default function HomePage() {
               className="category-item mb-4"
               to="/products?category=furniture"
               onClick={() => {
-                setFiltersState({
-                  ...defaultFiltersState,
-                  category: {
-                    ...defaultFiltersState.category,
-                    value: ["furniture"],
-                  },
-                });
+                dispatch(setCategoryResetFilters(["furniture"]));
               }}
             >
               <img className="img-fluid" src="Images/sofa.png" alt=""></img>
@@ -107,13 +89,7 @@ export default function HomePage() {
               className="category-item"
               to="/products?category=electronics"
               onClick={() => {
-                setFiltersState({
-                  ...defaultFiltersState,
-                  category: {
-                    ...defaultFiltersState.category,
-                    value: ["electronics"],
-                  },
-                });
+                dispatch(setCategoryResetFilters(["electronics"]));
               }}
             >
               <img className="img-fluid" src="Images/robots.png" alt=""></img>

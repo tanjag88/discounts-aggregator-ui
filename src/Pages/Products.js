@@ -1,19 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Product from "../Components/Product";
 import Paginate from "../Components/Paginate";
 import Sort from "../Components/Sort";
-import { useContext } from "react";
 import FilterCategory from "../Components/FilterCategory";
 import FilterSeller from "../Components/FilterSeller";
 import PriceRange from "../Components/PriceRange";
-import { AllFiltersContext } from "../Contexts/AllFiltersContext";
-
 import { useFetchProducts } from "../Services/fetchData";
+import { useSelector } from "react-redux";
+import generateUrl from "../Services/generateUrl";
+import { useHistory } from "react-router-dom";
 
 export default function Products() {
-  const { filtersState } = useContext(AllFiltersContext);
+  const filtersState = useSelector((state) => state.filters);
+  const url = generateUrl(filtersState);
+  const history = useHistory();
+  useEffect(() => {
+    history.push({
+      search: generateUrl(filtersState),
+    });
+  }, [history, filtersState]);
 
-  const result = useFetchProducts(filtersState);
+  const result = useFetchProducts(url);
   const data = result.data;
 
   if (data && data.error)

@@ -1,22 +1,12 @@
 import ReactPaginate from "react-paginate";
-import { useContext } from "react";
-import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../features/filtersSlice";
 
 export default function Paginate({ totalPages }) {
-  // const { filtersState, setFiltersState } = useContext(AllFiltersContext);
- const filtersState = useSelector((state) => state.filters);
- const dispatch = useDispatch();
+  const filtersState = useSelector((state) => state.filters);
+  const dispatch = useDispatch();
   function handlePageChange(data) {
-    dispatch(setPage(data.selected +1))
-    // setFiltersState((prevFiltersState) => ({
-    //   ...prevFiltersState,
-    //   currentPage: {
-    //     ...prevFiltersState.currentPage,
-    //     value: data.selected + 1,
-    //   },
-    // }));
+    dispatch(setPage(data.selected + 1));
   }
 
   return (

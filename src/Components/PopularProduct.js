@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 export default function PopularProduct({ product }) {
   const { name, img, id } = product;
@@ -30,9 +30,6 @@ export default function PopularProduct({ product }) {
           <Card.Title style={{ fontSize: "1rem" }}>
             <small>{name}</small>
           </Card.Title>
-          {/* <Link to={`/products/${id}`} className="d-block">
-            <Button variant="primary">Go somewhere</Button>
-          </Link> */}
         </Card.Body>
       </Card>
     </>

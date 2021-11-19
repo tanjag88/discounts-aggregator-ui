@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { AllFiltersContext } from "../Contexts/AllFiltersContext";
+import { useState } from "react";
 import {
   Navbar,
   Nav,
@@ -10,7 +9,6 @@ import {
   Button,
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import getDefaultFiltersState from "../Services/getDefaultFiltersState";
 import { useSelector, useDispatch } from "react-redux";
 import {
   setCategoryResetFilters,
@@ -21,64 +19,17 @@ import {
   removeSearchQuery,
   removeHomePageSort,
 } from "../features/filtersSlice";
+import generateUrl from "../Services/generateUrl";
 
 export default function Header() {
-  // function putUrlParams(selectedFilters, queryProp) {
-  //   const paramUrl =
-  //     selectedFilters.length !== 0
-  //       ? `&${queryProp}=` + selectedFilters.join(`&${queryProp}=`)
-  //       : "";
-  //   return paramUrl;
-  // }
-  // function getUrl(filtersState) {
-  //   debugger;
-  //   const categoryUrl =
-  //     filtersState.category.value.length === 0
-  //       ? ""
-  //       : putUrlParams(filtersState.category.value, "category");
-  //   const sellerUrl =
-  //     filtersState.seller.value.length === 0
-  //       ? ""
-  //       : putUrlParams(filtersState.seller.value, "seller");
-  //   const pageUrl =
-  //     filtersState.currentPage.value === 1
-  //       ? "&_page=1"
-  //       : `&_page=${filtersState.currentPage.value}`;
-
-  //   const sortingUrl =
-  //     filtersState.sorting.value.length === 0
-  //       ? ""
-  //       : `&_sort=${filtersState.sorting.value[0]}&_order=${filtersState.sorting.value[1]}`;
-
-  //   const priceRangeUrl = `&price_gte=${parseInt(
-  //     filtersState.priceRange.value[0]
-  //   )}&price_lte=${parseInt(filtersState.priceRange.value[1])}`;
-
-  //   const searchQueryUrl =
-  //     filtersState.searchQuery.value === ""
-  //       ? ""
-  //       : `&q=${filtersState.searchQuery.value}`;
-
-  //   return (
-  //     `&_limit=${filtersState.limit.value}` +
-  //     pageUrl +
-  //     categoryUrl +
-  //     sellerUrl +
-  //     sortingUrl +
-  //     priceRangeUrl +
-  //     searchQueryUrl
-  //   );
-  // }
-  // const { filtersState, setFiltersState } = useContext(AllFiltersContext);
   const filtersState = useSelector((state) => state.filters);
   const dispatch = useDispatch();
-  // const [url, setUrl] = useState('');
 
-  // const defaultFiltersState = getDefaultFiltersState();
+  const history = useHistory();
+
   const [searchQuery, setSearchQuery] = useState(
     filtersState.searchQuery.value
   );
-  const history = useHistory();
 
   function handleSearchQuery(event) {
     event.preventDefault();
@@ -86,7 +37,10 @@ export default function Header() {
 
     if (!history.location.pathname.includes("products")) {
       dispatch(removeHomePageSort());
-      // history.push("/products?" + filtersState.url(filtersState));
+      history.push({
+        search: generateUrl(filtersState),
+      });
+      history.push(`/products?${generateUrl(filtersState)}`);
     }
   }
 
@@ -101,7 +55,6 @@ export default function Header() {
             onClick={(e) => {
               dispatch(setHomePageSortResetFilters(["views.length", "desc"]));
               setSearchQuery("");
-              //   setSearchQuery("");
             }}
           >
             Discounts
@@ -142,8 +95,6 @@ export default function Header() {
                 onClick={(e) => {
                   dispatch(resetFilters());
                   setSearchQuery("");
-                  // setFiltersState(defaultFiltersState);
-                  // setSearchQuery("");
                 }}
               >
                 All Products
@@ -153,18 +104,9 @@ export default function Header() {
                   as={Link}
                   to="/products?category=furniture"
                   key={"selectFurniture"}
-                  onClick={(e) => {
+                  onClick={(event) => {
                     dispatch(setCategoryResetFilters(["furniture"]));
-
-                    // setFiltersState({
-                    //   ...defaultFiltersState,
-                    //   category: {
-                    //     ...defaultFiltersState.category,
-
-                    //     value: ["furniture"],
-                    //   },
-                    // });
-                    // setSearchQuery("");
+                    setSearchQuery("");
                   }}
                 >
                   Furniture
@@ -174,15 +116,7 @@ export default function Header() {
                   to="/products?category=electronics"
                   onClick={(e) => {
                     dispatch(setCategoryResetFilters(["electronics"]));
-
-                    // setFiltersState({
-                    //   ...defaultFiltersState,
-                    //   category: {
-                    //     ...defaultFiltersState.category,
-                    //     value: ["electronics"],
-                    //   },
-                    // });
-                    // setSearchQuery("");
+                    setSearchQuery("");
                   }}
                 >
                   Electronics
@@ -194,15 +128,7 @@ export default function Header() {
                   to="/products?seller=Structube"
                   onClick={(e) => {
                     dispatch(setSellerResetFilters(["Structube"]));
-
-                    // setFiltersState({
-                    //   ...defaultFiltersState,
-                    //   seller: {
-                    //     ...defaultFiltersState.seller,
-                    //     value: ["Structube"],
-                    //   },
-                    // });
-                    // setSearchQuery("");
+                    setSearchQuery("");
                   }}
                 >
                   Structube
@@ -212,15 +138,7 @@ export default function Header() {
                   to="/products?seller=BestBuy"
                   onClick={(e) => {
                     dispatch(setSellerResetFilters(["BestBuy"]));
-
-                    // setFiltersState({
-                    //   ...defaultFiltersState,
-                    //   seller: {
-                    //     ...defaultFiltersState.seller,
-                    //     value: ["BestBuy"],
-                    //   },
-                    // });
-                    // setSearchQuery("");
+                    setSearchQuery("");
                   }}
                 >
                   BestBuy
@@ -239,20 +157,11 @@ export default function Header() {
                   } else {
                     dispatch(removeSearchQuery());
                   }
-                  // dispatch(addSearchQuery(event.target.value));
                 }}
-                // value={searchQuery}
-                // onChange={(event) => {
-                //   setSearchQuery(event.target.value);
-                // }}
               />
               <Button
                 type="submit"
                 variant="btn btn-outline-dark"
-                // onClick={(event) => {
-                //   event.preventDefault();
-                //   dispatch(addSearchQuery(searchQuery));
-                // }}
                 onClick={handleSearchQuery}
               >
                 Search

@@ -9,7 +9,6 @@ import HomePage from "./Pages/HomePage";
 import "./css/style.default.css";
 import Footer from "./Components/Footer";
 import PageNotFound from "./Pages/PageNotFound";
-import { AllFiltersProvider } from "./Contexts/AllFiltersContext";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -19,25 +18,23 @@ function App() {
     <div className="page-holder">
       <Router>
         <QueryClientProvider client={queryClient}>
-          <AllFiltersProvider>
-            <Header />
-            <div className="container">
-              <Switch>
-                <Route exact path="/products/:id">
-                  <Detail />
-                </Route>
-                <Route exact path="/products">
-                  <Products />
-                </Route>
-                <Route exact path="/">
-                  <HomePage />
-                </Route>
-                <Route>
-                  <PageNotFound />
-                </Route>
-              </Switch>
-            </div>
-          </AllFiltersProvider>
+          <Header />
+          <div className="container">
+            <Switch>
+              <Route exact path="/products/:id">
+                <Detail />
+              </Route>
+              <Route exact path="/products">
+                <Products />
+              </Route>
+              <Route exact path="/">
+                <HomePage />
+              </Route>
+              <Route>
+                <PageNotFound />
+              </Route>
+            </Switch>
+          </div>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
 

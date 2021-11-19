@@ -1,12 +1,8 @@
 import React from "react";
-import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 import { setSortAndOrder } from "../features/filtersSlice";
 
 export default function Sort() {
-  // const { filtersState, setFiltersState } = useContext(AllFiltersContext);
   const filtersState = useSelector((state) => state.filters);
   const dispatch = useDispatch();
   const buttonTittleMap = new Map();
@@ -25,14 +21,6 @@ export default function Sort() {
           ];
 
     dispatch(setSortAndOrder(data));
-
-    // setFiltersState((prevFiltersState) => ({
-    //   ...prevFiltersState,
-    //   sorting: {
-    //     ...prevFiltersState.sorting,
-    //     value: data === null ? "" : data,
-    //   },
-    // }));
   }
 
   const isSelected = (option) =>

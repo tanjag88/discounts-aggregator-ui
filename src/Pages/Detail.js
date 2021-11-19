@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import HistoryPriceChart from "../Components/HistoryPriceChart";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
@@ -19,13 +19,8 @@ export default function Detail() {
 
   const userData = useSelector((state) => state.user);
 
-  
-  const [liked, setLiked] = useState(
-    userData.likedProducts.includes(id)
-  );
+  const [liked, setLiked] = useState(userData.likedProducts.includes(id));
   const { data } = useFetchProduct(id);
-
-  
 
   if (data && data.error)
     return <h1>An error has occurred:{data.error.message}</h1>;
@@ -43,14 +38,10 @@ export default function Detail() {
     }
   }
 
-  
-
   function handleLike() {
-   
     if (!userData.likedProducts.includes(id)) {
       dispatch(addLikedProduct(id));
 
-      
       setLiked(true);
       if (
         product.likes.length === 0 ||
@@ -62,7 +53,6 @@ export default function Detail() {
         });
       }
     } else {
-      
       dispatch(removeLikedProducts(id));
       setLiked(false);
     }

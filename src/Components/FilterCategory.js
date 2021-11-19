@@ -1,35 +1,20 @@
 import React from "react";
-import { useContext } from "react";
-import { AllFiltersContext } from "../Contexts/AllFiltersContext";
 import { useSelector, useDispatch } from "react-redux";
 import { addCategory, removeCategory } from "../features/filtersSlice";
 
 export default function FilterCategory() {
-  // const { filtersState, setFiltersState } = useContext(AllFiltersContext);
- const filtersState = useSelector((state) => state.filters);
- const dispatch = useDispatch();
+  const filtersState = useSelector((state) => state.filters);
+
+  const dispatch = useDispatch();
+
   function handelSelectCategory(e) {
     const selectedCategories = [].concat(filtersState.category.value);
 
     if (e.target.checked) {
       selectedCategories.push(e.target.value);
-      dispatch(addCategory(selectedCategories))
-      // setFiltersState((prevFiltersState) => ({
-      //   ...prevFiltersState,
-      //   category: { ...prevFiltersState.category, value: selectedCategory },
-      //   currentPage: { ...prevFiltersState.currentPage, value: 1 },
-      // }));
+      dispatch(addCategory(selectedCategories));
     } else {
-      // const newCategoryList = filtersState.category.value.filter(
-      //   (c) => c !== e.target.value
-      // );
       dispatch(removeCategory(e.target.value));
-
-      // setFiltersState((prevFiltersState) => ({
-      //   ...prevFiltersState,
-      //   category: { ...prevFiltersState.category, value: newCategoryList },
-      //   currentPage: { ...prevFiltersState.currentPage, value: 1 },
-      // }));
     }
   }
 
